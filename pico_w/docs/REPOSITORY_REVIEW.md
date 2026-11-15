@@ -2,6 +2,9 @@
 
 Reviewed 2026-11-15, `Bubchez/gecko-rp2040`, branch `feature/pico-w-bridge`,
 baseline commit `3baacda4c0e3ae58e8b014692cf5f146db2b3318`.
+The baseline findings below are historical, not claims about the independently
+implemented new core. See [VALIDATION.md](VALIDATION.md) for current acceptance
+tests and [LICENSING.md](LICENSING.md) for the no-upstream-code-reuse decision.
 The remote feature branch and master both pointed to this commit when inspected.
 No AGENTS.md, existing tests, CI workflow, Pico build, or captured bus-trace corpus
 was found in the checkout. Documentation contains examples, including incomplete

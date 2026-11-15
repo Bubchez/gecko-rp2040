@@ -16,6 +16,11 @@
   offline validation. Keep Gecko GPIO inactive. Exclude physical I2C transport and
   actuator execution entirely. No flashing, deployment, T10 or real bus work.
   Byte encoding is offline data only. Later roadmap gates require authorization.
+- The current follow-up authorizes isolated Pico W bench preparation: a Windows
+  launcher, local USB provisioning/Wi-Fi reconnect diagnostics, automated read-only
+  checks and redacted reports. Do not access hardware in this workspace or flash
+  automatically. The user-run launcher must require an isolation declaration before
+  USB access. No Gecko connection, physical I2C, actuator execution or T10.
 - Before copying implementation code, establish its exact license and provenance.
   Missing upstream permissions block reuse, not independently authored code from
   documented protocol facts. Preserve attribution; never blanket-relicense legacy

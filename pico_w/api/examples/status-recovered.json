@@ -1,0 +1,102 @@
+{
+  "api_version": "1.0",
+  "device_id": "gecko-host-mock-001",
+  "boot_id": "00000000000000000000000000000000",
+  "state_revision": 3,
+  "transport": "simulated",
+  "mode": "simulation",
+  "connection": {
+    "bus_state": "healthy",
+    "session_state": "ready",
+    "last_valid_frame_age_ms": 351,
+    "last_status_age_ms": 353,
+    "status_completed_age_ms": 351,
+    "stale_after_ms": 2000,
+    "ready": true
+  },
+  "quality": {
+    "valid": true,
+    "stale": false,
+    "source": "synthetic",
+    "invalid_fields": [],
+    "unavailable_fields": [
+      "/blower_on",
+      "/waterfall_on",
+      "/program",
+      "/lock_mode",
+      "/pack_type",
+      "/pump_timer_minutes",
+      "/spa_clock/local_datetime",
+      "/spa_clock/local_time",
+      "/spa_clock/timezone",
+      "/reminders/rinse_filter/due_date",
+      "/reminders/clean_filter/due_date",
+      "/reminders/change_water/due_date",
+      "/reminders/spa_checkup/due_date"
+    ],
+    "cached_fields": []
+  },
+  "state": {
+    "temperature_c": 36.5,
+    "target_temperature_c": 37,
+    "heater_on": false,
+    "standby": false,
+    "light_demand_on": true,
+    "circulation_on": false,
+    "blower_on": null,
+    "waterfall_on": null,
+    "program": null,
+    "lock_mode": null,
+    "pack_type": null,
+    "pump_timer_minutes": null,
+    "pumps": [
+      {
+        "id": "pump1",
+        "state": "off",
+        "user_demand": "off"
+      },
+      {
+        "id": "pump2",
+        "state": "off",
+        "user_demand": "off"
+      },
+      {
+        "id": "pump3",
+        "state": "off",
+        "user_demand": "off"
+      },
+      {
+        "id": "pump4",
+        "state": "off",
+        "user_demand": "off"
+      }
+    ],
+    "spa_clock": {
+      "local_datetime": null,
+      "local_time": null,
+      "timezone": null
+    },
+    "reminders": {
+      "rinse_filter": {
+        "due_date": null,
+        "source": "unknown",
+        "age_ms": null
+      },
+      "clean_filter": {
+        "due_date": null,
+        "source": "unknown",
+        "age_ms": null
+      },
+      "change_water": {
+        "due_date": null,
+        "source": "unknown",
+        "age_ms": null
+      },
+      "spa_checkup": {
+        "due_date": null,
+        "source": "unknown",
+        "age_ms": null
+      }
+    }
+  }
+}

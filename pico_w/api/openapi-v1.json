@@ -1,0 +1,1350 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Gecko read-only bridge API",
+    "version": "1.0.0",
+    "description": "Frozen T08 read-only contract. Host mock is synthetic, loopback-only and cannot control hardware. See HTTP_API_V1.md.",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    }
+  },
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8765",
+      "description": "Native-session host mock; no physical communication"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Read health",
+        "responses": {
+          "200": {
+            "description": "Successful read. HTTP 200 does not imply spa readiness.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/capabilities": {
+      "get": {
+        "operationId": "getCapabilities",
+        "summary": "Read capabilities",
+        "responses": {
+          "200": {
+            "description": "Successful read. HTTP 200 does not imply spa readiness.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Capabilities"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Read status",
+        "responses": {
+          "200": {
+            "description": "Successful read. HTTP 200 does not imply spa readiness.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics": {
+      "get": {
+        "operationId": "getDiagnostics",
+        "summary": "Read diagnostics",
+        "responses": {
+          "200": {
+            "description": "Successful read. HTTP 200 does not imply spa readiness.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Diagnostics"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/commands": {
+      "post": {
+        "operationId": "rejectCommand",
+        "summary": "Reject every actuator command; no command queue or execution exists.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "403": {
+            "description": "Always read_only for an authenticated, well-formed JSON object; no 2xx/202 acceptance exists.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error"
+          },
+          "415": {
+            "$ref": "#/components/responses/Error"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/{request_id}": {
+      "get": {
+        "operationId": "getRejectedCommand",
+        "summary": "No commands are retained in v1; always unknown_request.",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "unknown_request; no command was accepted or retained by this mock.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "const": "close"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "Structured rejection; no operation accepted. Retryable is true only for temporary 429/503 conditions.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "const": "no-store"
+            }
+          },
+          "Connection": {
+            "schema": {
+              "const": "close"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Missing, invalid or duplicate bearer Authorization; WWW-Authenticate: Bearer.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "const": "no-store"
+            }
+          },
+          "Connection": {
+            "schema": {
+              "const": "close"
+            }
+          },
+          "WWW-Authenticate": {
+            "schema": {
+              "const": "Bearer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "Rate limit exceeded; Retry-After: 1.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "const": "no-store"
+            }
+          },
+          "Connection": {
+            "schema": {
+              "const": "close"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "const": "1"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unavailable": {
+        "description": "Backend unavailable or cached snapshot expired; Retry-After: 1.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "const": "no-store"
+            }
+          },
+          "Connection": {
+            "schema": {
+              "const": "close"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "const": "1"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "api_version",
+          "error"
+        ],
+        "properties": {
+          "api_version": {
+            "const": "1.0"
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "request_id",
+              "retryable"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "request_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "Health": {
+        "type": "object",
+        "required": [
+          "api_version",
+          "service",
+          "boot_id",
+          "uptime_ms",
+          "live"
+        ],
+        "properties": {
+          "api_version": {
+            "const": "1.0"
+          },
+          "service": {
+            "const": "gecko-pico-bridge"
+          },
+          "boot_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "uptime_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "live": {
+            "const": true
+          }
+        }
+      },
+      "CommandCapability": {
+        "type": "object",
+        "required": [
+          "supported",
+          "enabled",
+          "reason"
+        ],
+        "properties": {
+          "supported": {
+            "const": false
+          },
+          "enabled": {
+            "const": false
+          },
+          "reason": {
+            "const": "read_only"
+          }
+        }
+      },
+      "Capabilities": {
+        "type": "object",
+        "required": [
+          "api_version",
+          "device_id",
+          "boot_id",
+          "firmware_version",
+          "transport",
+          "mode",
+          "read_only",
+          "physical_control_enabled",
+          "profile",
+          "read_fields",
+          "commands",
+          "equipment",
+          "limits"
+        ],
+        "properties": {
+          "api_version": {
+            "const": "1.0"
+          },
+          "device_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "boot_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "firmware_version": {
+            "type": "string"
+          },
+          "transport": {
+            "type": "string",
+            "enum": [
+              "simulated",
+              "rp2040_i2c"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "simulation",
+              "passive",
+              "active_read_only"
+            ]
+          },
+          "read_only": {
+            "const": true
+          },
+          "physical_control_enabled": {
+            "const": false
+          },
+          "profile": {
+            "type": "object",
+            "required": [
+              "target_model",
+              "config_file",
+              "status_file",
+              "layout",
+              "validation"
+            ],
+            "properties": {
+              "target_model": {
+                "type": "string"
+              },
+              "config_file": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^inYT_C[1-9][0-9]{0,2}\\.xml$"
+              },
+              "status_file": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^inYT_S[1-9][0-9]{0,2}\\.xml$"
+              },
+              "layout": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "validation": {
+                "enum": [
+                  "unknown",
+                  "synthetic",
+                  "bench",
+                  "pack_read_only"
+                ]
+              }
+            }
+          },
+          "read_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "commands": {
+            "type": "object",
+            "required": [
+              "light.set",
+              "temperature.set",
+              "program.set",
+              "pump.set"
+            ],
+            "properties": {
+              "light.set": {
+                "$ref": "#/components/schemas/CommandCapability"
+              },
+              "temperature.set": {
+                "$ref": "#/components/schemas/CommandCapability"
+              },
+              "program.set": {
+                "$ref": "#/components/schemas/CommandCapability"
+              },
+              "pump.set": {
+                "$ref": "#/components/schemas/CommandCapability"
+              }
+            }
+          },
+          "equipment": {
+            "type": "object",
+            "required": [
+              "pump1",
+              "pump2",
+              "pump3",
+              "pump4"
+            ],
+            "properties": {
+              "pump1": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "pump2": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "pump3": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "pump4": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          },
+          "limits": {
+            "type": "object",
+            "required": [
+              "command_queue",
+              "command_history",
+              "idempotency_retention_ms",
+              "max_body_bytes",
+              "max_header_bytes",
+              "max_uri_bytes",
+              "max_response_bytes",
+              "max_connections",
+              "requests_per_second",
+              "request_burst"
+            ],
+            "properties": {
+              "command_queue": {
+                "const": 0
+              },
+              "command_history": {
+                "const": 0
+              },
+              "idempotency_retention_ms": {
+                "const": 0
+              },
+              "max_body_bytes": {
+                "const": 512
+              },
+              "max_header_bytes": {
+                "const": 2048
+              },
+              "max_uri_bytes": {
+                "const": 128
+              },
+              "max_response_bytes": {
+                "const": 8192
+              },
+              "max_connections": {
+                "const": 2
+              },
+              "requests_per_second": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "request_burst": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      },
+      "Reminder": {
+        "type": "object",
+        "required": [
+          "due_date",
+          "source",
+          "age_ms"
+        ],
+        "properties": {
+          "due_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "source": {
+            "enum": [
+              "unknown",
+              "observed",
+              "cached"
+            ]
+          },
+          "age_ms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      },
+      "Pump": {
+        "type": "object",
+        "required": [
+          "id",
+          "state",
+          "user_demand"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "pump1",
+              "pump2",
+              "pump3",
+              "pump4"
+            ]
+          },
+          "state": {
+            "enum": [
+              "off",
+              "high",
+              "low",
+              "unknown"
+            ]
+          },
+          "user_demand": {
+            "enum": [
+              "off",
+              "high",
+              "low",
+              "unknown"
+            ]
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "required": [
+          "api_version",
+          "device_id",
+          "boot_id",
+          "state_revision",
+          "transport",
+          "mode",
+          "connection",
+          "quality",
+          "state"
+        ],
+        "properties": {
+          "api_version": {
+            "const": "1.0"
+          },
+          "device_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "boot_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "state_revision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "transport": {
+            "type": "string",
+            "enum": [
+              "simulated",
+              "rp2040_i2c"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "simulation",
+              "passive",
+              "active_read_only"
+            ]
+          },
+          "connection": {
+            "type": "object",
+            "required": [
+              "bus_state",
+              "session_state",
+              "last_valid_frame_age_ms",
+              "last_status_age_ms",
+              "status_completed_age_ms",
+              "stale_after_ms",
+              "ready"
+            ],
+            "properties": {
+              "bus_state": {
+                "enum": [
+                  "disabled",
+                  "unknown",
+                  "healthy",
+                  "degraded",
+                  "fault"
+                ]
+              },
+              "session_state": {
+                "enum": [
+                  "disabled",
+                  "disconnected",
+                  "go_pending",
+                  "awaiting_files",
+                  "awaiting_clock",
+                  "awaiting_lo",
+                  "ready",
+                  "backoff",
+                  "fault"
+                ]
+              },
+              "last_valid_frame_age_ms": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "last_status_age_ms": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "status_completed_age_ms": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "stale_after_ms": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "ready": {
+                "type": "boolean"
+              }
+            }
+          },
+          "quality": {
+            "type": "object",
+            "required": [
+              "valid",
+              "stale",
+              "source",
+              "invalid_fields",
+              "unavailable_fields",
+              "cached_fields"
+            ],
+            "properties": {
+              "valid": {
+                "type": "boolean"
+              },
+              "stale": {
+                "type": "boolean"
+              },
+              "source": {
+                "enum": [
+                  "unknown",
+                  "synthetic",
+                  "replay",
+                  "live"
+                ]
+              },
+              "invalid_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^/"
+                }
+              },
+              "unavailable_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^/"
+                }
+              },
+              "cached_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^/"
+                }
+              }
+            }
+          },
+          "state": {
+            "type": "object",
+            "required": [
+              "temperature_c",
+              "target_temperature_c",
+              "heater_on",
+              "standby",
+              "light_demand_on",
+              "circulation_on",
+              "blower_on",
+              "waterfall_on",
+              "pumps",
+              "program",
+              "lock_mode",
+              "pack_type",
+              "pump_timer_minutes",
+              "spa_clock",
+              "reminders"
+            ],
+            "properties": {
+              "temperature_c": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "target_temperature_c": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "heater_on": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "standby": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "light_demand_on": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "circulation_on": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "blower_on": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "waterfall_on": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "pumps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Pump"
+                }
+              },
+              "program": {
+                "enum": [
+                  null,
+                  "away",
+                  "standard",
+                  "energy",
+                  "super_energy",
+                  "weekend"
+                ]
+              },
+              "lock_mode": {
+                "enum": [
+                  null,
+                  "unlocked",
+                  "partial",
+                  "full",
+                  "unknown"
+                ]
+              },
+              "pack_type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pump_timer_minutes": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 255
+              },
+              "spa_clock": {
+                "type": "object",
+                "required": [
+                  "local_datetime",
+                  "local_time",
+                  "timezone"
+                ],
+                "properties": {
+                  "local_datetime": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d$"
+                  },
+                  "local_time": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^\\d\\d:\\d\\d:\\d\\d$"
+                  },
+                  "timezone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "reminders": {
+                "type": "object",
+                "required": [
+                  "rinse_filter",
+                  "clean_filter",
+                  "change_water",
+                  "spa_checkup"
+                ],
+                "properties": {
+                  "rinse_filter": {
+                    "$ref": "#/components/schemas/Reminder"
+                  },
+                  "clean_filter": {
+                    "$ref": "#/components/schemas/Reminder"
+                  },
+                  "change_water": {
+                    "$ref": "#/components/schemas/Reminder"
+                  },
+                  "spa_checkup": {
+                    "$ref": "#/components/schemas/Reminder"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Diagnostics": {
+        "type": "object",
+        "required": [
+          "api_version",
+          "boot_id",
+          "transport",
+          "mode",
+          "scenario",
+          "simulation_time_ms",
+          "counters",
+          "http",
+          "timing_us",
+          "memory",
+          "last_error"
+        ],
+        "properties": {
+          "api_version": {
+            "const": "1.0"
+          },
+          "boot_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "transport": {
+            "type": "string",
+            "enum": [
+              "simulated",
+              "rp2040_i2c"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "simulation",
+              "passive",
+              "active_read_only"
+            ]
+          },
+          "scenario": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              null,
+              "healthy",
+              "unavailable",
+              "stale",
+              "recovery",
+              "invalid_temperature"
+            ],
+            "description": "Host fixture name; null on a non-mock implementation."
+          },
+          "simulation_time_ms": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Synthetic clock; null when no host simulation is running."
+          },
+          "counters": {
+            "type": "object",
+            "required": [
+              "attempts",
+              "failures",
+              "invalid_rx",
+              "ignored_rx",
+              "stale_events",
+              "assembly_aborts",
+              "statuses",
+              "tx_submitted",
+              "tx_completed",
+              "rx_dropped",
+              "queue_overflows",
+              "checkpoints",
+              "retired_trace_events"
+            ],
+            "properties": {
+              "attempts": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "failures": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "invalid_rx": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "ignored_rx": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "stale_events": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "assembly_aborts": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "statuses": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "tx_submitted": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "tx_completed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "rx_dropped": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "queue_overflows": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "checkpoints": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "retired_trace_events": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              }
+            }
+          },
+          "http": {
+            "type": "object",
+            "required": [
+              "unauthorized",
+              "denied_commands",
+              "rate_limited"
+            ],
+            "properties": {
+              "unauthorized": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "denied_commands": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "rate_limited": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4294967295
+              }
+            }
+          },
+          "timing_us": {
+            "type": "object",
+            "required": [
+              "max_irq_service",
+              "max_role_switch",
+              "max_handshake_ack"
+            ],
+            "properties": {
+              "max_irq_service": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "max_role_switch": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "max_handshake_ack": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              }
+            }
+          },
+          "memory": {
+            "type": "object",
+            "required": [
+              "min_free_bytes",
+              "stack_headroom_bytes"
+            ],
+            "properties": {
+              "min_free_bytes": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "stack_headroom_bytes": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              }
+            }
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "code",
+                  "age_ms"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "age_ms": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

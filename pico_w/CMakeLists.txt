@@ -31,6 +31,10 @@ add_library(gecko_core STATIC src/core/protocol.cpp src/core/assembly.cpp
 target_include_directories(gecko_core PUBLIC include)
 target_link_libraries(gecko_core PUBLIC gecko_build_options)
 
+# Native host process with bounded stdin/stdout IPC; never imports a physical HAL.
+add_executable(gecko_mock_core src/host/mock_core.cpp)
+target_link_libraries(gecko_mock_core PRIVATE gecko_core)
+
 include(CTest)
 if(BUILD_TESTING)
   add_executable(gecko_core_tests tests/core_tests.cpp)
@@ -41,7 +45,7 @@ if(BUILD_TESTING)
     add_test(NAME core.${case} COMMAND gecko_core_tests ${case})
     set_tests_properties(core.${case} PROPERTIES TIMEOUT 30)
   endforeach()
-  find_package(Python3 3.8 REQUIRED COMPONENTS Interpreter)
+  find_package(Python3 3.10 REQUIRED COMPONENTS Interpreter)
   add_test(NAME core.fixtures COMMAND ${Python3_EXECUTABLE}
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_fixtures.py
     ${CMAKE_CURRENT_SOURCE_DIR}/fixtures/protocol-examples.json $<TARGET_FILE:gecko_core_tests>)
@@ -53,5 +57,10 @@ if(BUILD_TESTING)
       reconnect session_faults loss_recovery determinism temporal_boundaries)
     add_test(NAME scenario.${case} COMMAND gecko_scenario_tests ${case})
     set_tests_properties(scenario.${case} PROPERTIES TIMEOUT 30)
+  endforeach()
+  foreach(case IN ITEMS schema backend contract framing startup)
+    add_test(NAME http.${case} COMMAND ${Python3_EXECUTABLE}
+      ${CMAKE_CURRENT_SOURCE_DIR}/tests/http_tests.py ${case} $<TARGET_FILE:gecko_mock_core>)
+    set_tests_properties(http.${case} PROPERTIES TIMEOUT 60)
   endforeach()
 endif()

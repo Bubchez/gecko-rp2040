@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+# Development validators only; host runtime uses Python's standard library.
+jsonschema==4.23.0
+openapi-spec-validator==0.7.2

@@ -216,4 +216,11 @@ bool SimulatedTransport::scenario_complete() const noexcept {
          !pending_ && events_.size() == 0 && !overflow_;
 }
 
+Error SimulatedTransport::retire_completed_script() noexcept {
+  if (!scenario_complete()) return Error::Busy;
+  ++stats_.checkpoints; stats_.retired_trace_events += trace_size_;
+  tx_size_ = tx_cursor_ = rx_size_ = rx_cursor_ = trace_size_ = 0;
+  return Error::None;
+}
+
 }  // namespace gecko

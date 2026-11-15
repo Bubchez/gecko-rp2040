@@ -63,3 +63,14 @@ tests are independently authored within the same scoped MIT coverage. Test helpe
 reuse this repository's newly authored MIT core-test conventions, not upstream
 Arduino/ESPHome code. No upstream source extraction, permission waiver, third-party
 source import or new license grant was used for this milestone.
+
+T08 update: independently authored `src/host/`, `tools/start_mock.py`, API definitions
+under `api/` and HTTP tests use the expanded scoped MIT notice. Runtime consumes the
+installed C++/Python standard libraries; no upstream Arduino/ESPHome source, HTTP
+framework, JSON parser source, SDK, assets or third-party implementation is vendored.
+Test-only packages are pinned in tests/requirements.txt: jsonschema 4.23.0 (metadata
+license MIT) and openapi-spec-validator 0.7.2 (Apache-2.0), installed as external
+development tools with their dependencies. They are not needed by the runnable
+mock. New API examples are synthetic outputs of this new core with normalized boot
+IDs, not upstream captures. The unresolved permissions for inherited source/assets
+remain unchanged; no upstream grant is inferred from completing T08.

@@ -1,5 +1,6 @@
 Scope: Only newly authored portable-core implementation, host tests and build
-scripts under include/, src/, tests/ and CMakeLists.txt in this directory.
+scripts/API definitions under include/, src/, tests/, tools/, api/ and
+CMakeLists.txt in this directory.
 This notice does not relicense original Arduino/ESPHome files, assets, inherited
 source or the historical review tool. See docs/LICENSING.md.
 

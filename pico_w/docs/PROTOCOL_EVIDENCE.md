@@ -38,6 +38,9 @@ were copied into the new implementation.
 | E21 | Status acquisition age, status deadline and freshness | Conservative host policy, not a Gecko timestamp or measured freshness limit | A complete assembly carries first/completion synthetic arrival times; oldest-fragment age gates freshness. Old epoch, noise, unrelated frames and partial data cannot refresh status. |
 | E22 | Reconnect budget, jitter and terminal release | Seeded host policy, not observed Gecko retry behavior | Capped exponential delay, bounded failed attempts, full new epoch/handshake; fresh status alone resets failure budget. Terminal fault deactivates participation until explicit local restart. |
 | E23 | Read-only enforcement | Software invariant tested on host | Both layers deny actuator requests; only exact GO/fixed ACK bytes enter the simulator. Physical I/O is absent, even for GO/ACK or slave replies. |
+| E24 | HTTP API values and unavailable fields | Host adapter over the independently authored C++ session, no new hardware evidence | Immutable cache, conservative oldest-fragment age, nulls for unsupported fields and equipment, all actuator objects rejected. No hard-coded live status or presumed hardware compatibility. |
+| E25 | Running beyond finite synthetic script limits | Explicit host-driver checkpoint policy | Only fully consumed scripts/traces can be retired; clock, epoch, revision, loss generation and aggregate counters survive. A 120-second model test crosses the original 64-entry/512-trace lifetime limits without resetting the session or losing provenance. |
+| E26 | API/schema and Windows startup | Host-only software contract/procedure | OpenAPI 3.1 is validated against actual mock responses. Portable .exe discovery and Linux startup are tested; native Windows and any Pico networking behavior remain unverified. |
 
 ## Fixture provenance
 

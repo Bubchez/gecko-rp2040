@@ -1,0 +1,26 @@
+T08 launcher source-build smoke, Linux, 2026-11-15
+$ /workspace/gecko-rp2040/work/review/venv/bin/python pico_w/tools/start_mock.py --cmake /workspace/gecko-rp2040/work/review/venv/bin/cmake --port 0 --token-file /workspace/gecko-rp2040/work/t08-smoke/token.txt
+
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/gecko-rp2040/work/gecko-http/build
+[ 14%] Building CXX object CMakeFiles/gecko_core.dir/src/core/protocol.cpp.o
+[ 28%] Building CXX object CMakeFiles/gecko_core.dir/src/core/assembly.cpp.o
+[ 42%] Building CXX object CMakeFiles/gecko_core.dir/src/transport/simulated.cpp.o
+[ 57%] Building CXX object CMakeFiles/gecko_core.dir/src/session/session.cpp.o
+[ 71%] Linking CXX static library libgecko_core.a
+[ 71%] Built target gecko_core
+[ 85%] Building CXX object CMakeFiles/gecko_mock_core.dir/src/host/mock_core.cpp.o
+[100%] Linking CXX executable gecko_mock_core
+[100%] Built target gecko_mock_core
+Local bearer token file: /workspace/gecko-rp2040/work/t08-smoke/token.txt (token value is not logged)
+Gecko host mock: http://127.0.0.1:36265/api/v1/health (synthetic, read-only)
+PASS source-built launcher serves authenticated fresh synthetic state over loopback HTTP
+{"http_status": 200, "source": "synthetic", "ready": true, "temperature_c": 36.5}
+PASS Ctrl+C-style SIGINT shutdown exits cleanly with status 0

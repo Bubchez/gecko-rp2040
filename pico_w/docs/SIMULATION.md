@@ -6,6 +6,11 @@ started. All scenarios and inbound envelopes remain **synthetic**. No upstream
 implementation code was copied; the existing scoped license and no-reuse decision
 apply to these new modules.
 
+Historical T06–T07 record: subsequent T08 work now adds the separate loopback
+HTTP adapter and explicitly acknowledged script retirement for long-running mock
+operation. See [HOST_MOCK.md](HOST_MOCK.md) and [HTTP_API_V1.md](HTTP_API_V1.md).
+The T06–T07 stop boundary below is historical; the current stop boundary is T09.
+
 ## Public interfaces and ownership
 
 - `include/gecko/transport.hpp`: bounded transaction/RX scripts, phase-aware

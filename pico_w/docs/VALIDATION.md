@@ -1,4 +1,104 @@
-# Current T06–T07 validation
+# Current T08 validation
+
+Run date: 2026-11-15. Branch `feature/pico-w-bridge`, base commit
+`33fdede7ce23363d3294c030dd3b6bfca1ef8868`. T08 is complete for the local,
+read-only host scope. Stop before T09. No physical communication, Pico target,
+hardware deployment or Agile Alert/Pi Zero application modifications occurred.
+
+| Check | Actual result | Evidence |
+|---|---|---|
+| Clean Debug build with ASan/UBSan and strict warnings | 35/35 CTest groups pass; original core/scenario regressions included | [T08_DEBUG.txt](validation/T08_DEBUG.txt) |
+| Clean optimized Release build | 35/35 CTest groups pass; test checks remain active under NDEBUG | [T08_RELEASE.txt](validation/T08_RELEASE.txt) |
+| OpenAPI 3.1, response JSON Schema and examples | Schema validates; actual responses across all five fixtures and seven committed synthetic examples validate | http.schema in both transcripts |
+| HTTP/IPC/startup acceptance | 23 Python test methods across five HTTP groups, including real loopback requests and native core process | Verbose test names/results in both transcripts |
+| Source-build launcher smoke on Linux | Launcher builds Release without test dependencies, serves authenticated fresh synthetic state, logs no token value and exits cleanly on SIGINT | [T08_STARTUP.txt](validation/T08_STARTUP.txt) |
+| Windows-compatible launcher | Portable command/path handling and multi-config .exe discovery tested; **native Windows execution not available** | http.startup and HOST_MOCK.md |
+| Preservation/scope | Original Arduino/ESPHome/tools/examples/assets remain unchanged; all new work is under pico_w plus instruction updates | Final diff audit against original baseline |
+
+Toolchain: GCC 14.2.0, CMake/CTest 3.31.6, Python 3.12.14. Development validators:
+jsonschema 4.23.0 and openapi-spec-validator 0.7.2. Runtime uses only Python/C++
+standard libraries. Exact tool metadata, build arguments, per-case output and exit
+statuses are committed in the new transcripts (trailing whitespace trimmed only). These are local host results,
+not a claim of GitHub Actions, Windows execution, Pico networking or hardware tests.
+The original 60,000 deterministic malformed/mutation cases remain included.
+
+## Reproduce all tests
+
+Install the test-only validators into a local venv; configure CMake with its Python.
+The current workspace uses work/review/venv, as shown in the actual transcripts.
+A fresh Linux/macOS setup can use:
+
+```sh
+python3 -m venv work/http-tests-env
+work/http-tests-env/bin/python -m pip install -r pico_w/tests/requirements.txt
+cmake -S pico_w -B work/pico-core -DGECKO_SANITIZERS=ON -DCMAKE_BUILD_TYPE=Debug -DPython3_EXECUTABLE="$PWD/work/http-tests-env/bin/python"
+cmake --build work/pico-core --clean-first -j 2
+ctest --test-dir work/pico-core -V --output-on-failure
+cmake -S pico_w -B work/pico-core-release -DGECKO_SANITIZERS=OFF -DCMAKE_BUILD_TYPE=Release -DPython3_EXECUTABLE="$PWD/work/http-tests-env/bin/python"
+cmake --build work/pico-core-release --clean-first -j 2
+ctest --test-dir work/pico-core-release -V --output-on-failure
+```
+
+Windows startup and Release test commands are in [HOST_MOCK.md](HOST_MOCK.md).
+MSVC sanitizer support is not claimed by this configuration; validated sanitizer
+runs use GCC on Linux. Native subprocesses exit through EOF in the test harness,
+allowing normal sanitizer termination. The launcher smoke uses a normal Release
+build, not a Pico cross-compilation.
+
+## Integration boundaries reviewed and fixed
+
+- Finite T06 scripts/trace cannot support an indefinitely running host by implicit
+  reset. An explicit retire_completed_script method accepts only completed/drained
+  scenarios. It preserves clock, role, epoch, revision and counters and acknowledges
+  retired trace counts. A two-minute native-model test exceeds the original lifetime
+  capacities without resetting session state or hitting an unexpected transaction.
+- HTTP handlers never drive/tick the core. A maintenance owner advances the native
+  model; GETs read a bounded immutable cache. Tests compare complete native snapshots
+  before/after HTTP GETs and denied commands. Request rate cannot alter the protocol.
+- Oldest-fragment freshness is preserved in milliseconds, with completion age
+  separate. Expired cache/dead process gives 503, not frozen ready data; modeled
+  session fault/staleness gives status 200 with stale/ready false and retained state.
+- Unsupported fields are null with explicit unavailable paths; equipment presence
+  is unknown, not inferred from four candidate pump channels. Invalid actual
+  temperature can be null while target stays valid. Every output remains synthetic.
+- Authentication precedes protected data; malformed/ambiguous framing is rejected.
+  No CORS, non-loopback binding, command acceptance or network/physical adapter exists.
+- Two boundary regressions were reproduced before fixes: embedded NUL caused the
+  bounded native stdin parser to accept a truncated command; and the standard HTTP
+  parser normalized //api/v1/status into a valid route. Native parsing now uses the
+  extracted byte count and rejects NUL; raw double-slash targets reject before
+  standard parsing. Final suites cover both. Expect/100-continue is also rejected
+  before the library can send an unintended interim response.
+
+## HTTP acceptance coverage
+
+Authentication/missing/wrong/duplicate headers; constant-time token comparison;
+minimal public health; no token logging; no CORS; route/method denials; all nine
+representative actuator/unknown intent families forbidden without a core change;
+read-only rejection even when backend unavailable; no command acceptance/history;
+boot unknowns and later observations; source/identity/revision semantics; null and
+invalid fields; retained stale data; core fault recovery without boot change;
+rate limits and Retry-After; bounded URI/header/body sizes; duplicate lengths,
+Transfer-Encoding/Expect, Host, body/media rules; strict UTF-8/JSON including duplicate
+keys, NaN/Infinity/exponent overflow/surrogates; absolute receive deadline and close;
+backend loss/cache expiry and validation; native IPC malformed input; long running
+model; source/fixture/schema agreement; multi-config executable discovery, secret
+file reuse, live launcher HTTP and graceful source-build smoke shutdown.
+
+No new upstream implementation is reused. The scoped MIT notice now covers the
+new host tools and API definitions; validators remain external development packages.
+See [LICENSING.md](LICENSING.md), [HTTP_API_V1.md](HTTP_API_V1.md),
+[HOST_MOCK.md](HOST_MOCK.md) and [AGILE_ALERT_HANDOFF.md](AGILE_ALERT_HANDOFF.md).
+
+Remaining limitations: real protocol/electrical/Pico behavior remains unverified;
+no native Windows run was possible; suspend/catch-up longer than 60 s fails the
+mock backend closed and needs restart. The Agile Alert handoff is a specification,
+not application implementation work. Next action: review the handoff and contract.
+**Stop before T09.**
+
+---
+
+# Historical T06–T07 validation (33fdede)
 
 Run date: 2026-11-15. Branch `feature/pico-w-bridge`; implementation base
 `d7d300beb9e368b66c69a76ce01009b317c66ad5`. T06–T07 are completed for the host,

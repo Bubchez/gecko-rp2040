@@ -1,7 +1,7 @@
-# Roadmap after T06–T07
+# Roadmap after T08
 
 Updated 2026-11-15. The user's follow-up authorizes host implementation after the
-initial review and then T06–T07, while keeping all physical bus work/deployment and Agile Alert
+initial review, T06–T07 and now T08, while keeping all physical bus work/deployment and Agile Alert
 out of scope. This status supersedes the initial plan's blanket implementation
 pause; it does not approve later hardware/control gates.
 
@@ -30,6 +30,13 @@ pause; it does not approve later hardware/control gates.
 - Independent read-only gates in session and transport; physical communication is
   permanently absent. Acquisition-time, interrupted-assembly and fault-state
   regressions are fixed and tested; see [SIMULATION.md](SIMULATION.md).
+- T08 finalized read-only API v1/OpenAPI 3.1, native-session-backed loopback HTTP
+  mock, independent maintenance/cache, strict authentication/JSON/framing, explicit
+  null/unavailable/freshness semantics and rejection of every actuator operation.
+- Windows-compatible single-command launcher and local secret provisioning,
+  compiler/executable path handling, integration handoff for Agile Alert, and
+  complete regression/HTTP schema/contract/startup tests. Native Windows execution
+  was not available; portable startup handling and a full Linux build/run were tested.
 
 ## Original task mapping
 
@@ -43,17 +50,16 @@ pause; it does not approve later hardware/control gates.
 | T05 Status/reassembly | Synthetic implementation + acquisition metadata delivered | v50, combined tails, other lengths and real profile validation remain blocked/deferred. |
 | T06 Simulated transport | Complete for host scope | Scripted transport, phase faults, exact TX matching, bounded queues, deterministic time/trace and recovery tests delivered. Real bus fidelity remains unverified. |
 | T07 Session/policy | Complete for synthetic read-only scope | Handshake, profile/session invalidation, snapshot freshness, reconnection/backoff, passive/default modes and defense-in-depth read-only tests delivered. No physical readiness claim. |
-| T08 Host HTTP | Not started; stop boundary | Proposal remains unchanged. Schema freeze, host adapter/mock and contract tests require a subsequent task; Pi application stays separate. |
-| T09–T14 Hardware/network | Not authorized now | Pico/Wi-Fi/physical I²C, electrical review, bench/capture/read-only pack gates. |
+| T08 Host HTTP | Complete for host read-only scope | Frozen v1/OpenAPI, runnable mock using existing core, authentication/freshness/null/fault/denial tests, Windows procedure and Agile Alert handoff delivered. No application changes. |
+| T09–T14 Hardware/network | Stop before T09; not authorized now | Pico/Wi-Fi/physical I²C, electrical review, bench/capture/read-only pack gates remain separate. |
 | T15–T17 Control/release | Deferred | Command lifecycle, supervised validation, release permissions and reviewed merge. |
 
 ## Next development slice
 
-1. Review the T06–T07 interfaces, findings, acquisition-age semantics and scenario
-   evidence. Do not promote candidate behavior merely because host tests pass.
-2. Stop before T08 as requested. A later task can agree the HTTP schema and build
-   the host mock using these read-only session/snapshot interfaces; no HTTP or
-   network implementation is included now.
+1. Review the final API/schema, Windows startup, Agile Alert handoff and T08 test
+   evidence. The handoff specifies integration work; it does not modify Agile Alert.
+2. Stop before T09 as requested. No Pico target, Wi-Fi, physical transport or
+   deployment is included; a later task must explicitly authorize any further scope.
 3. Obtain permission/capture evidence independently before considering code reuse
    or physical transport. No schedule can eliminate those external dependencies.
 

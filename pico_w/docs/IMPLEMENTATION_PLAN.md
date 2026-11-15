@@ -3,11 +3,11 @@
 Proposal v0.1, 2026-11-15. **Review before implementation.**
 
 Milestone update: subsequent user instructions authorize the portable host core
-and now T06–T07 host simulation/read-only sessions. Stop before T08. See
+through T08 host simulation, read-only sessions and loopback HTTP mock. Stop before T09. See
 [ROADMAP.md](ROADMAP.md), [PROTOCOL_EVIDENCE.md](PROTOCOL_EVIDENCE.md),
 [LICENSING.md](LICENSING.md) and [VALIDATION.md](VALIDATION.md) for current status.
 The original architecture/backlog below is retained as planning history; its
-hardware, network/deployment and control stages remain unapproved and unimplemented.
+hardware, Pico/Wi-Fi/deployment and control stages remain unapproved and unimplemented.
 
 Repository: `Bubchez/gecko-rp2040`; branch: `feature/pico-w-bridge`.
 Baseline: `3baacda4c0e3ae58e8b014692cf5f146db2b3318`.

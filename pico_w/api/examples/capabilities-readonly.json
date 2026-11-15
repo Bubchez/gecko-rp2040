@@ -1,0 +1,65 @@
+{
+  "api_version": "1.0",
+  "device_id": "gecko-host-mock-001",
+  "boot_id": "00000000000000000000000000000000",
+  "firmware_version": "0.1.0-host",
+  "transport": "simulated",
+  "mode": "simulation",
+  "read_only": true,
+  "physical_control_enabled": false,
+  "profile": {
+    "target_model": "IN.YE-3-H3.0 / YE-3-CE V2",
+    "config_file": "inYT_C82.xml",
+    "status_file": "inYT_S81.xml",
+    "layout": "inyt-v51-candidate",
+    "validation": "synthetic"
+  },
+  "read_fields": [
+    "temperatures",
+    "heater",
+    "standby",
+    "light_demand",
+    "circulation",
+    "pumps"
+  ],
+  "commands": {
+    "light.set": {
+      "supported": false,
+      "enabled": false,
+      "reason": "read_only"
+    },
+    "temperature.set": {
+      "supported": false,
+      "enabled": false,
+      "reason": "read_only"
+    },
+    "program.set": {
+      "supported": false,
+      "enabled": false,
+      "reason": "read_only"
+    },
+    "pump.set": {
+      "supported": false,
+      "enabled": false,
+      "reason": "read_only"
+    }
+  },
+  "equipment": {
+    "pump1": null,
+    "pump2": null,
+    "pump3": null,
+    "pump4": null
+  },
+  "limits": {
+    "command_queue": 0,
+    "command_history": 0,
+    "idempotency_retention_ms": 0,
+    "max_body_bytes": 512,
+    "max_header_bytes": 2048,
+    "max_uri_bytes": 128,
+    "max_response_bytes": 8192,
+    "max_connections": 2,
+    "requests_per_second": 5,
+    "request_burst": 10
+  }
+}

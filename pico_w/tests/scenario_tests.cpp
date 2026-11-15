@@ -124,6 +124,7 @@ void transport_success() {
   CHECK(t.add_tx(plan)==Error::None);
   CHECK(t.activate(TransportMode::SyntheticReadOnly)==Error::None);
   CHECK(t.submit(request(encode_go().value),0)==Error::None);
+  CHECK(t.retire_completed_script()==Error::Busy);
   CHECK(t.role()==Role::MasterWrite);
   CHECK(t.advance(10)==Error::None && t.role()==Role::MasterRead);
   CHECK(t.advance(20)==Error::None && t.role()==Role::Stop);
@@ -134,6 +135,10 @@ void transport_success() {
   CHECK(e.tx.read_count==2 && e.tx.read[0]==0x12 && e.tx.read[1]==0x34);
   CHECK(e.tx.restored && e.tx.write_count_known && e.tx.possibly_applied());
   CHECK(t.scenario_complete());
+  const auto retired=t.trace_size();
+  CHECK(t.retire_completed_script()==Error::None && t.trace_size()==0);
+  CHECK(t.stats().checkpoints==1 && t.stats().retired_trace_events==retired);
+  CHECK(t.stats().submitted==1 && t.stats().completed==1 && t.role()==Role::Listen);
   CHECK(t.add_rx(rx(file(),50))==Error::None);
   CHECK(t.advance(50)==Error::None);
   auto r=t.poll(); CHECK(r && r->kind==EventKind::Rx && r->at_us==50);

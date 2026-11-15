@@ -75,6 +75,7 @@ struct RoleTrace { std::uint64_t at_us{0}, tx_id{0}; Role role{Role::Inactive}; 
 struct TransportStats {
   std::uint64_t submitted{0}, completed{0}, denied{0}, dropped_rx{0}, queue_overflows{0};
   std::uint64_t queue_dropped_events{0};
+  std::uint64_t checkpoints{0}, retired_trace_events{0};
 };
 
 // There is deliberately no physical adapter, SDK dependency or write-enable mode.
@@ -95,6 +96,9 @@ class SimulatedTransport {
   std::optional<TransportEvent> poll() noexcept;
   void cancel(std::uint64_t session) noexcept;
   bool scenario_complete() const noexcept;
+  // Explicit host-driver acknowledgement of a completed finite script/trace.
+  // Preserves clock, role, loss generation, counters and session identity.
+  Error retire_completed_script() noexcept;
   Error scenario_error() const noexcept { return scenario_error_; }
   Role role() const noexcept { return role_; }
   std::uint64_t loss_generation() const noexcept { return loss_generation_; }

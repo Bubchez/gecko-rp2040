@@ -30,6 +30,13 @@
   `cmake -S pico_w -B work/pico-core -DGECKO_SANITIZERS=ON`,
   `cmake --build work/pico-core`, `ctest --test-dir work/pico-core --output-on-failure`.
   Record exact commands, versions, results and limitations in `VALIDATION.md`.
+- T08 HTTP/schema tests require Python 3.10+ and the development validators in
+  `pico_w/tests/requirements.txt`. Install them in a local venv and configure
+  `-DPython3_EXECUTABLE=<absolute venv Python path>` when CMake selects Python.
+  The runnable host mock needs only standard Python, CMake and a C++17 compiler.
+  Read `HOST_MOCK.md` and `HTTP_API_V1.md` before changing HTTP behavior. Keep all
+  v1 operations read-only; HTTP reads must not advance the session. Stop before T09
+  unless a later user instruction authorizes more work.
 - Keep scratch/build files in `work/` and out of commits. Check the final diff,
   original-tree preservation and tests before committing. Keep review, instructions
   and implementation commits distinct. Never claim tests or pushes that did not run.

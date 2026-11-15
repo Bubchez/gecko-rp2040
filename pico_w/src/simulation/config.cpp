@@ -105,6 +105,11 @@ const char* wifi_name(WifiState state) noexcept {
 void WifiPolicy::configure(bool valid,std::uint64_t now) noexcept {
   state_=valid?WifiState::Backoff:WifiState::Unprovisioned; deadline_=now; backoff_ms_=1000;
 }
+bool WifiPolicy::reconnect(std::uint64_t now) noexcept {
+  if(state_!=WifiState::Online || now>UINT64_MAX-1000) return false;
+  increment(reconnects_);state_=WifiState::Backoff;deadline_=now+1000;backoff_ms_=1000;
+  return true;
+}
 WifiAction WifiPolicy::tick(std::uint64_t now,bool up,bool failed) noexcept {
   if(state_==WifiState::Unprovisioned) return WifiAction::None;
   if(state_==WifiState::Backoff) {

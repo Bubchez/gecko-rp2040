@@ -713,6 +713,11 @@
                 "minimum": 1
               }
             }
+          },
+          "firmware_build_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "description": "Optional simulation firmware input digest; reported correlation identity, not flash readback or authenticated attestation."
           }
         }
       },

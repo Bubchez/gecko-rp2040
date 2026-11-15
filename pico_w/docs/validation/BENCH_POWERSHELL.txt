@@ -1,0 +1,11 @@
+PowerShell 7.4.6 Linux live VerifyOnly smoke, 2026-11-15 UTC. No USB enumeration/access or radio/network probe.
+XDG cache/config/data redirected under work/bench; HOME unchanged.
+$ work/bench/pwsh/pwsh -NoLogo -NoProfile -File pico_w/tools/bench.ps1 -VerifyOnly -Python "$PWD/work/review/venv/bin/python"
+artifact: pass
+Redacted report: /workspace/gecko-rp2040/work/pico-bench/reports/bench-20261115T1948242933936Z.json
+Result: verified_only; ok
+
+Exit status: 0
+PowerShell archive SHA256: 6f6015203c47806c5cc444c19d8ed019695e610fbd948154264bf9ca8e157561
+Source: https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell-7.4.6-linux-x64.tar.gz
+Checksum: same release hashes.sha256, verified before extraction. External test tool only; not redistributed.

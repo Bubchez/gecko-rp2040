@@ -1,0 +1,591 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/gecko/bench-report-v1.schema.json",
+  "title": "Redacted isolated Pico simulation bench report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_version",
+    "tool_version",
+    "started_at",
+    "overall",
+    "blocker",
+    "isolation_declared",
+    "hardware_accessed",
+    "artifact",
+    "checks",
+    "unverified",
+    "platform"
+  ],
+  "$defs": {
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "code",
+        "duration_ms",
+        "metrics"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "artifact",
+            "usb_identity",
+            "provisioning",
+            "wifi_online",
+            "http_identity",
+            "http_authentication",
+            "http_read_only",
+            "http_malformed",
+            "status_freshness",
+            "diagnostics",
+            "wifi_reconnection",
+            "post_recovery"
+          ]
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "pass",
+            "fail"
+          ]
+        },
+        "code": {
+          "enum": [
+            "ambiguous_pico",
+            "artifact_invalid",
+            "bootstrap_failed",
+            "control_not_denied",
+            "credentials_invalid",
+            "dependency_missing",
+            "firmware_update_required",
+            "http_contract",
+            "http_framing",
+            "http_json",
+            "http_unavailable",
+            "identity_mismatch",
+            "interrupted",
+            "invalid_info",
+            "isolation_required",
+            "local_token_invalid",
+            "local_token_missing",
+            "no_pico",
+            "ok",
+            "provision_rejected",
+            "reconnect_not_observed",
+            "reconnect_rejected",
+            "report_write_failed",
+            "source_mismatch",
+            "stale_state",
+            "unexpected_error",
+            "unexpected_status",
+            "usb_framing",
+            "usb_open_failed",
+            "usb_timeout",
+            "usb_write_failed",
+            "wifi_timeout",
+            "wrong_port"
+          ]
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "checks": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "denied_commands_delta": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "memory_measured": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "offline_observed": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "provisioned_now": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "ready": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "revision_advanced": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "same_boot": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "samples": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "simulation_advanced": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "unauthorized_delta": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "unavailable_fields": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "wifi_attempts_delta": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "wifi_reconnects_delta": {
+              "type": [
+                "boolean",
+                "integer"
+              ],
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "token_migrated": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "report_version": {
+      "const": "1.0"
+    },
+    "tool_version": {
+      "const": "0.1.0"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overall": {
+      "enum": [
+        "blocked",
+        "fail",
+        "verified_only",
+        "pass"
+      ]
+    },
+    "blocker": {
+      "enum": [
+        "ambiguous_pico",
+        "artifact_invalid",
+        "bootstrap_failed",
+        "control_not_denied",
+        "credentials_invalid",
+        "dependency_missing",
+        "firmware_update_required",
+        "http_contract",
+        "http_framing",
+        "http_json",
+        "http_unavailable",
+        "identity_mismatch",
+        "interrupted",
+        "invalid_info",
+        "isolation_required",
+        "local_token_invalid",
+        "local_token_missing",
+        "no_pico",
+        "ok",
+        "provision_rejected",
+        "reconnect_not_observed",
+        "reconnect_rejected",
+        "report_write_failed",
+        "source_mismatch",
+        "stale_state",
+        "unexpected_error",
+        "unexpected_status",
+        "usb_framing",
+        "usb_open_failed",
+        "usb_timeout",
+        "usb_write_failed",
+        "wifi_timeout",
+        "wrong_port"
+      ]
+    },
+    "isolation_declared": {
+      "type": "boolean"
+    },
+    "hardware_accessed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "artifact": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sha256",
+            "build_id",
+            "firmware_version",
+            "uf2_bytes"
+          ],
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "build_id": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "firmware_version": {
+              "const": "0.2.1-pico-sim"
+            },
+            "uf2_bytes": {
+              "type": "integer",
+              "minimum": 512,
+              "maximum": 4194304
+            }
+          }
+        }
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "artifact"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "usb_identity"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "provisioning"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "wifi_online"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "http_identity"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "http_authentication"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "http_read_only"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "http_malformed"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "status_freshness"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "diagnostics"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "wifi_reconnection"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/check"
+            },
+            {
+              "properties": {
+                "id": {
+                  "const": "post_recovery"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "items": false
+    },
+    "unverified": {
+      "const": [
+        "electrical_gpio_levels",
+        "flash_readback_attestation",
+        "heap_stack_irq_watermarks",
+        "real_access_point_outage",
+        "flash_power_loss_endurance",
+        "windows_usb_if_not_run_on_windows",
+        "all_gecko_electrical_bus_protocol_behaviour"
+      ]
+    },
+    "bootstrap_step": {
+      "enum": [
+        "mode",
+        "artifact_hash",
+        "python",
+        "private_acl",
+        "environment",
+        "dependencies",
+        "runner"
+      ]
+    },
+    "platform": {
+      "enum": [
+        "windows",
+        "linux",
+        "other"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "overall": {
+            "const": "pass"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "isolation_declared": {
+            "const": true
+          },
+          "hardware_accessed": {
+            "const": true
+          },
+          "artifact": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sha256",
+              "build_id",
+              "firmware_version",
+              "uf2_bytes"
+            ],
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "build_id": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "firmware_version": {
+                "const": "0.2.1-pico-sim"
+              },
+              "uf2_bytes": {
+                "type": "integer",
+                "minimum": 512,
+                "maximum": 4194304
+              }
+            }
+          },
+          "blocker": {
+            "const": "ok"
+          },
+          "checks": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "pass"
+                },
+                "code": {
+                  "const": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

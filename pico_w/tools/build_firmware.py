@@ -11,6 +11,7 @@ import struct
 import subprocess
 import tarfile
 import urllib.request
+from firmware_identity import build_id
 
 ROOT = Path(__file__).resolve().parents[2]
 PICO = ROOT / "pico_w"
@@ -90,7 +91,7 @@ def source_digest():
         files += sorted(p for p in (PICO / directory).rglob("*") if p.is_file() and "__pycache__" not in p.parts)
     digest = hashlib.sha256()
     for path in sorted(files):
-        digest.update(path.relative_to(ROOT).as_posix().encode() + b"\0" + path.read_bytes() + b"\0")
+        digest.update(path.relative_to(ROOT).as_posix().encode() + b"\0" + path.read_bytes().replace(b"\r\n", b"\n") + b"\0")
     return digest.hexdigest()
 
 
@@ -184,10 +185,13 @@ def main():
         "-DCMAKE_MAKE_PROGRAM=" + str(ninja_bin), env=env)
     run(cmake_bin, "--build", build, "--parallel", "2", env=env)
     budget = inspect_image(build, toolchain)
+    binary = (build / "gecko_pico_sim.bin").read_bytes()
+    if build_id().encode("ascii") + b"\0" not in binary:
+        raise RuntimeError("Compiled firmware identity does not match current inputs")
     args.artifacts.mkdir(parents=True, exist_ok=True)
     image = args.artifacts / "gecko_pico_w_SIMULATION_NO_I2C.uf2"
-    image.write_bytes(uf2((build / "gecko_pico_sim.bin").read_bytes()))
-    manifest = dict(format=1, firmware="0.2.0-pico-sim", api="1.0.0", purpose="offline-reviewed simulation only; not hardware validated",
+    image.write_bytes(uf2(binary))
+    manifest = dict(format=1, firmware="0.2.1-pico-sim", firmware_build_id=build_id(), api="1.0.0", purpose="offline-reviewed simulation only; not hardware validated",
                     source_tree_sha256=source_digest(), uf2_sha256=sha(image), uf2_bytes=image.stat().st_size,
                     inputs=LOCK, memory=budget, physical_i2c=False, actuator_execution=False, gecko_gpio="inactive")
     (args.artifacts / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")

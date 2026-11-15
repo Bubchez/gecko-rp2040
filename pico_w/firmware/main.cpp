@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "gecko/runtime.hpp"
+#include "gecko/identity.hpp"
+#include "gecko/usb.hpp"
 #include "network.hpp"
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
@@ -28,6 +30,7 @@ std::array<ConfigRecord,2> records;
 ConfigRecord pending;
 std::uint32_t pending_offset=0;
 std::array<char,513> serial_line{};
+std::array<char,513> info_line{};
 std::size_t serial_size=0;
 bool serial_overflow=false,radio_initialized=false,connect_failed=false;
 std::array<char,33> boot_id{};
@@ -77,6 +80,16 @@ void serial_poll() noexcept {
       if(!serial_overflow && line=="STATUS") {
         const char* ip=radio_initialized && netif_default?ip4addr_ntoa(netif_ip4_addr(netif_default)):"unavailable";
         std::printf("SIMULATION_NO_I2C wifi=%s provisioned=%u ip=%s port=8765 gpio4_5=inactive\n",wifi_name(wifi.state()),credentials.valid()?1U:0U,ip);
+      } else if(!serial_overflow && line=="INFO") {
+        const char* ip=radio_initialized && netif_default?ip4addr_ntoa(netif_ip4_addr(netif_default)):"0.0.0.0";
+        const UsbInfo info{boot_id.data(),credentials.device.data(),ip,credentials.valid(),wifi.state(),wifi.attempts(),wifi.reconnects()};
+        if(format_usb_info(info,info_line)!=0) std::fputs(info_line.data(),stdout);
+        else std::puts("INFO_UNAVAILABLE");
+      } else if(!serial_overflow && line=="WIFI_RECONNECT") {
+        if(radio_initialized && wifi.reconnect(now_ms())) {
+          firmware::server_stop();(void)cyw43_wifi_leave(&cyw43_state,CYW43_ITF_STA);
+          std::puts("RECONNECTING");
+        } else std::puts("RECONNECT_REJECTED");
       } else if(!serial_overflow && provision(line)) std::puts("CONFIG_SAVED");
       else std::puts("CONFIG_REJECTED");
       serial_line.fill(0);serial_size=0;serial_overflow=false;

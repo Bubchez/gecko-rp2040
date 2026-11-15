@@ -29,6 +29,7 @@ class WifiPolicy {
  public:
   void configure(bool valid,std::uint64_t now_ms) noexcept;
   WifiAction tick(std::uint64_t now_ms,bool link_up,bool failed) noexcept;
+  bool reconnect(std::uint64_t now_ms) noexcept;
   WifiState state() const noexcept { return state_; }
   std::uint32_t attempts() const noexcept { return attempts_; }
   std::uint32_t reconnects() const noexcept { return reconnects_; }

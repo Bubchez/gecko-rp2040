@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "gecko/runtime.hpp"
+#include "gecko/identity.hpp"
 #include <algorithm>
 #include <cinttypes>
 #include <cstdio>
@@ -78,7 +79,9 @@ void Api::document(std::string_view path,Response& r,std::uint64_t now) noexcept
   const auto& s=snapshot_;
   if(path=="/api/v1/capabilities") {
     w.raw(",\"device_id\":");w.string(credentials_.device.data());
-    w.raw(",\"firmware_version\":\"0.2.0-pico-sim\",\"read_only\":true,\"physical_control_enabled\":false,\"profile\":{\"target_model\":\"IN.YE-3-H3.0 / YE-3-CE V2\",\"config_file\":");
+    w.raw(",\"firmware_version\":");w.string(firmware_version);
+    w.raw(",\"firmware_build_id\":");w.string(firmware_build_id);
+    w.raw(",\"read_only\":true,\"physical_control_enabled\":false,\"profile\":{\"target_model\":\"IN.YE-3-H3.0 / YE-3-CE V2\",\"config_file\":");
     const bool bound=versions_.config==82 && versions_.status==81;
     w.raw(bound?"\"inYT_C82.xml\",\"status_file\":\"inYT_S81.xml\",\"layout\":\"inyt-v51-candidate\",\"validation\":\"synthetic\"}":"null,\"status_file\":null,\"layout\":null,\"validation\":\"unknown\"}");
     w.raw(",\"read_fields\":[\"temperatures\",\"heater\",\"standby\",\"light_demand\",\"circulation\",\"pumps\"],\"commands\":{");

@@ -73,48 +73,29 @@ All observations stay `transport: simulated`, `mode: simulation`, source synthet
 model string, synthetic handshake or successful Wi-Fi association would not validate
 the Gecko protocol, electrical interface or installed equipment.
 
-## Windows flashing/configuration handoff — future approved bench use only
+## Windows isolated bench handoff
 
-**Do not execute these device steps in T09.** They are the requested procedure for
-later review, with no Gecko wiring attached. No USB/flash/radio test has run here.
+The original multi-command USB procedure is superseded by
+[ISOLATED_BENCH.md](ISOLATED_BENCH.md): Python 3.12+ and one PowerShell command,
+`.\pico_w\tools\bench.ps1 -IsolatedPico`. It verifies the reviewed 0.2.1 UF2,
+compares USB/API build identities, provisions only when needed, discovers IP,
+runs read-only contract/freshness/reconnection checks and writes a redacted report.
+Use `-VerifyOnly` for a completely offline run. No flashing code exists; if needed,
+manual BOOTSEL/Explorer copying is described in that handoff. All Gecko wiring
+must remain disconnected. No hardware action occurred in this workspace.
 
-1. After separate authorization, verify the UF2 SHA256 against `SHA256SUMS` using
-   PowerShell `Get-FileHash .\pico_w\artifacts\t09\gecko_pico_w_SIMULATION_NO_I2C.uf2 -Algorithm SHA256`.
-2. Hold BOOTSEL while attaching **an isolated Pico W** by USB; copy that UF2 onto
-   `RPI-RP2` in Explorer. The drive should disappear and a USB CDC COM port should
-   appear. This expected behaviour is unverified on hardware. No auto-flasher exists.
-3. Create a local Windows provisioning environment and supply the actual COM port:
+The firmware adds bounded USB INFO and WIFI_RECONNECT metadata/link diagnostics;
+there is no HTTP control/configuration/reconnect route. GPIO stays inactive and
+physical I2C/actuation are absent. DTR is required for SDK CDC stdio; fixed TX FIFO
+1024 holds the <=512-byte INFO line with nonblocking output. Build ID is a reported
+native input digest, not authenticated flash readback. The host mock remains v1
+compatible; optional capabilities.firmware_build_id distinguishes native inputs.
 
-   ```powershell
-   py -3 -m venv .\work\pico-usb-env
-   .\work\pico-usb-env\Scripts\python.exe -m pip install pyserial==3.5
-   .\work\pico-usb-env\Scripts\python.exe .\pico_w\tools\provision_usb.py --port COM5
-   ```
-
-   Enter SSID and hidden WPA2 password. The tool creates/reuses
-   `work\gecko-pico\token.txt`, never prints the token/password, and reports success
-   only on `CONFIG_SAVED`. Protect this local file with your Windows account ACL;
-   POSIX mode 0600 does not establish a Windows ACL. No credentials are in the UF2.
-4. A terminal at 115200 baud can send `STATUS` followed by Enter. The redacted
-   response reports provisioning, Wi-Fi state, DHCP IP, port 8765 and inactive
-   Gecko GPIO. Use that IP for server-side read-only API requests. No command may
-   enable actuation. Existing host mock remains `127.0.0.1:8765`.
-
-The device stores credentials **unencrypted** in its reserved flash sectors. Anyone
-with flash access can read them. HTTP bearer tokens are also **unencrypted on Wi-Fi**:
-use an isolated trusted development LAN; do not expose this service to the Internet.
-No TLS, captive portal, AP, browser/CORS access or cloud provisioning is provided.
-The Pi Zero/Agile Alert server-side integration must retain its own token privately.
-
-Reprovisioning via USB closes the server and stops the radio before flash access.
-It writes the alternate sector and validates the new record before acknowledging;
-a CRC-valid previous record is retained if the replacement fails. Sequence rollover
-refuses further writes; no automatic factory reset or write-per-boot exists.
-Boot uses only validated records. Blank/corrupt flash leaves Wi-Fi unprovisioned
-and the HTTP listener closed. Normal UF2 updates avoid the final 8 KiB, so credentials
-persist; the procedure is **not** a secure erase. Power-loss endurance/atomicity and
-USB/flash coordination require real-device tests; CRC tests alone do not establish
-physical flash guarantees.
+Persistent Wi-Fi credentials remain unencrypted in reserved flash; HTTP bearer
+traffic remains unencrypted on the trusted development LAN. The launcher protects
+its Windows private token directory, reuses valid tokens and does not rewrite
+credentials on normal reruns. Native Windows ACL/USB execution, actual persistence,
+SDK buffering and radio behaviour remain unverified.
 
 ## Resource evidence and remaining tests
 

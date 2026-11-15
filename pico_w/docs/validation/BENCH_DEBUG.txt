@@ -1,0 +1,611 @@
+Isolated bench preparation OFFLINE validation, 2026-11-15 UTC. No physical device access.
+Implementation working tree after separate instruction commit.
+PowerShell uses workspace XDG cache/config/data directories; no HOME override.
+
+$ git branch --show-current
+feature/pico-w-bridge
+Exit status: 0
+
+$ git rev-parse HEAD
+690de03d145064f37466caa402d5fe3d16292784
+Exit status: 0
+
+$ g++ --version
+g++ (Debian 14.2.0-19) 14.2.0
+Copyright (C) 2024 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/cmake --version
+cmake version 3.31.6
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/python --version
+Python 3.12.14
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/python -m pip show pyserial jsonschema openapi-spec-validator
+Name: pyserial
+Version: 3.5
+Summary: Python Serial Port Extension
+Home-page: https://github.com/pyserial/pyserial
+Author: Chris Liechti
+Author-email: cliechti@gmx.net
+License: BSD
+Location: /workspace/gecko-rp2040/work/review/venv/lib/python3.12/site-packages
+Requires:
+Required-by: platformio
+---
+Name: jsonschema
+Version: 4.23.0
+Summary: An implementation of JSON Schema validation for Python
+Home-page: https://github.com/python-jsonschema/jsonschema
+Author:
+Author-email: Julian Berman <Julian+jsonschema@GrayVines.com>
+License: MIT
+Location: /workspace/gecko-rp2040/work/review/venv/lib/python3.12/site-packages
+Requires: attrs, jsonschema-specifications, referencing, rpds-py
+Required-by: openapi-schema-validator, openapi-spec-validator
+---
+Name: openapi-spec-validator
+Version: 0.7.2
+Summary: OpenAPI 2.0 (aka Swagger) and OpenAPI 3 spec validator
+Home-page:
+Author: Artur Maciag
+Author-email: maciag.artur@gmail.com
+License: Apache-2.0
+Location: /workspace/gecko-rp2040/work/review/venv/lib/python3.12/site-packages
+Requires: jsonschema, jsonschema-path, lazy-object-proxy, openapi-schema-validator
+Required-by:
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/bench/pwsh/pwsh -NoLogo -NoProfile -Command '$PSVersionTable.PSVersion.ToString()'
+7.4.6
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/cmake -S pico_w -B work/pico-core -DCMAKE_BUILD_TYPE=Debug -DGECKO_SANITIZERS=ON -DPython3_EXECUTABLE=/workspace/gecko-rp2040/work/review/venv/bin/python -DGECKO_POWERSHELL_TEST_EXECUTABLE=/workspace/gecko-rp2040/work/bench/pwsh/pwsh
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/gecko-rp2040/work/pico-core
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/cmake --build work/pico-core --clean-first -j 2
+[  4%] Building CXX object CMakeFiles/gecko_core.dir/src/core/protocol.cpp.o
+[  8%] Building CXX object CMakeFiles/gecko_core.dir/src/core/assembly.cpp.o
+[ 12%] Building CXX object CMakeFiles/gecko_core.dir/src/transport/simulated.cpp.o
+[ 16%] Building CXX object CMakeFiles/gecko_core.dir/src/session/session.cpp.o
+[ 20%] Building CXX object CMakeFiles/gecko_core.dir/src/simulation/model.cpp.o
+[ 24%] Linking CXX static library libgecko_core.a
+[ 24%] Built target gecko_core
+[ 28%] Building CXX object CMakeFiles/gecko_runtime.dir/src/simulation/config.cpp.o
+[ 32%] Building CXX object CMakeFiles/gecko_mock_core.dir/src/host/mock_core.cpp.o
+[ 36%] Building CXX object CMakeFiles/gecko_runtime.dir/src/simulation/json.cpp.o
+[ 40%] Linking CXX executable gecko_mock_core
+[ 40%] Built target gecko_mock_core
+[ 44%] Building CXX object CMakeFiles/gecko_core_tests.dir/tests/core_tests.cpp.o
+[ 48%] Building CXX object CMakeFiles/gecko_runtime.dir/src/simulation/api.cpp.o
+[ 52%] Building CXX object CMakeFiles/gecko_runtime.dir/src/simulation/maintenance.cpp.o
+[ 56%] Building CXX object CMakeFiles/gecko_runtime.dir/src/simulation/usb.cpp.o
+[ 60%] Linking CXX static library libgecko_runtime.a
+[ 60%] Built target gecko_runtime
+[ 64%] Building CXX object CMakeFiles/gecko_scenario_tests.dir/tests/scenario_tests.cpp.o
+[ 68%] Linking CXX executable gecko_core_tests
+[ 68%] Built target gecko_core_tests
+[ 72%] Building CXX object CMakeFiles/gecko_runtime_probe.dir/tests/runtime_probe.cpp.o
+[ 76%] Linking CXX executable gecko_runtime_probe
+[ 76%] Built target gecko_runtime_probe
+[ 80%] Building CXX object CMakeFiles/gecko_runtime_tests.dir/tests/runtime_tests.cpp.o
+[ 84%] Linking CXX executable gecko_runtime_tests
+[ 84%] Built target gecko_runtime_tests
+[ 88%] Building CXX object CMakeFiles/gecko_network_tests.dir/tests/network_tests.cpp.o
+[ 92%] Linking CXX executable gecko_scenario_tests
+[ 96%] Building CXX object CMakeFiles/gecko_network_tests.dir/firmware/network.cpp.o
+[ 96%] Built target gecko_scenario_tests
+[100%] Linking CXX executable gecko_network_tests
+[100%] Built target gecko_network_tests
+Exit status: 0
+
+$ /workspace/gecko-rp2040/work/review/venv/bin/ctest --test-dir work/pico-core -V --output-on-failure
+Internal ctest changing into directory: /workspace/gecko-rp2040/work/pico-core
+UpdateCTestConfiguration  from :/workspace/gecko-rp2040/work/pico-core/DartConfiguration.tcl
+Parse Config file:/workspace/gecko-rp2040/work/pico-core/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/workspace/gecko-rp2040/work/pico-core/DartConfiguration.tcl
+Parse Config file:/workspace/gecko-rp2040/work/pico-core/DartConfiguration.tcl
+Test project /workspace/gecko-rp2040/work/pico-core
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: core.bytes
+
+1: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "bytes"
+1: Working Directory: /workspace/gecko-rp2040/work/pico-core
+1: Test timeout computed to be: 30
+1: PASS bytes: 22 checks
+ 1/43 Test  #1: core.bytes .......................   Passed    0.02 sec
+test 2
+      Start  2: core.hex
+
+2: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "hex"
+2: Working Directory: /workspace/gecko-rp2040/work/pico-core
+2: Test timeout computed to be: 30
+2: PASS hex: 269 checks
+ 2/43 Test  #2: core.hex .........................   Passed    0.01 sec
+test 3
+      Start  3: core.proxy
+
+3: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "proxy"
+3: Working Directory: /workspace/gecko-rp2040/work/pico-core
+3: Test timeout computed to be: 30
+3: PASS proxy: 403 checks
+ 3/43 Test  #3: core.proxy .......................   Passed    0.01 sec
+test 4
+      Start  4: core.temperature
+
+4: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "temperature"
+4: Working Directory: /workspace/gecko-rp2040/work/pico-core
+4: Test timeout computed to be: 30
+4: PASS temperature: 95 checks
+ 4/43 Test  #4: core.temperature .................   Passed    0.01 sec
+test 5
+      Start  5: core.switches
+
+5: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "switches"
+5: Working Directory: /workspace/gecko-rp2040/work/pico-core
+5: Test timeout computed to be: 30
+5: PASS switches: 9233 checks
+ 5/43 Test  #5: core.switches ....................   Passed    0.01 sec
+test 6
+      Start  6: core.program
+
+6: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "program"
+6: Working Directory: /workspace/gecko-rp2040/work/pico-core
+6: Test timeout computed to be: 30
+6: PASS program: 18 checks
+ 6/43 Test  #6: core.program .....................   Passed    0.01 sec
+test 7
+      Start  7: core.fixed_frames
+
+7: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "fixed_frames"
+7: Working Directory: /workspace/gecko-rp2040/work/pico-core
+7: Test timeout computed to be: 30
+7: PASS fixed_frames: 14 checks
+ 7/43 Test  #7: core.fixed_frames ................   Passed    0.01 sec
+test 8
+      Start  8: core.frame_rejection
+
+8: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "frame_rejection"
+8: Working Directory: /workspace/gecko-rp2040/work/pico-core
+8: Test timeout computed to be: 30
+8: PASS frame_rejection: 940 checks
+ 8/43 Test  #8: core.frame_rejection .............   Passed    0.01 sec
+test 9
+      Start  9: core.filename
+
+9: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "filename"
+9: Working Directory: /workspace/gecko-rp2040/work/pico-core
+9: Test timeout computed to be: 30
+9: PASS filename: 55 checks
+ 9/43 Test  #9: core.filename ....................   Passed    0.01 sec
+test 10
+      Start 10: core.clock
+
+10: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "clock"
+10: Working Directory: /workspace/gecko-rp2040/work/pico-core
+10: Test timeout computed to be: 30
+10: PASS clock: 29 checks
+10/43 Test #10: core.clock .......................   Passed    0.01 sec
+test 11
+      Start 11: core.reminders
+
+11: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "reminders"
+11: Working Directory: /workspace/gecko-rp2040/work/pico-core
+11: Test timeout computed to be: 30
+11: PASS reminders: 43 checks
+11/43 Test #11: core.reminders ...................   Passed    0.01 sec
+test 12
+      Start 12: core.status
+
+12: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "status"
+12: Working Directory: /workspace/gecko-rp2040/work/pico-core
+12: Test timeout computed to be: 30
+12: PASS status: 176 checks
+12/43 Test #12: core.status ......................   Passed    0.01 sec
+test 13
+      Start 13: core.assembly
+
+13: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "assembly"
+13: Working Directory: /workspace/gecko-rp2040/work/pico-core
+13: Test timeout computed to be: 30
+13: PASS assembly: 50 checks
+13/43 Test #13: core.assembly ....................   Passed    0.01 sec
+test 14
+      Start 14: core.boundaries
+
+14: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "boundaries"
+14: Working Directory: /workspace/gecko-rp2040/work/pico-core
+14: Test timeout computed to be: 30
+14: PASS boundaries: 1619 checks
+14/43 Test #14: core.boundaries ..................   Passed    0.01 sec
+test 15
+      Start 15: core.mutations
+
+15: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_core_tests "mutations"
+15: Working Directory: /workspace/gecko-rp2040/work/pico-core
+15: Test timeout computed to be: 30
+15: PASS mutations: 139497 checks
+15/43 Test #15: core.mutations ...................   Passed    0.19 sec
+test 16
+      Start 16: core.fixtures
+
+16: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/check_fixtures.py" "/workspace/gecko-rp2040/pico_w/fixtures/protocol-examples.json" "/workspace/gecko-rp2040/work/pico-core/gecko_core_tests"
+16: Working Directory: /workspace/gecko-rp2040/work/pico-core
+16: Test timeout computed to be: 30
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS fixture: 3 checks
+16: PASS: 15 complete, attributed, hardware-unverified fixtures
+16: PASS: incomplete/mislabeled fixture rejection
+16/43 Test #16: core.fixtures ....................   Passed    0.12 sec
+test 17
+      Start 17: scenario.transport_success
+
+17: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "transport_success"
+17: Working Directory: /workspace/gecko-rp2040/work/pico-core
+17: Test timeout computed to be: 30
+17: PASS transport_success: 24 checks; evidence=synthetic; physical_io=false
+17/43 Test #17: scenario.transport_success .......   Passed    0.01 sec
+test 18
+      Start 18: scenario.transport_faults
+
+18: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "transport_faults"
+18: Working Directory: /workspace/gecko-rp2040/work/pico-core
+18: Test timeout computed to be: 30
+18: PASS transport_faults: 100 checks; evidence=synthetic; physical_io=false
+18/43 Test #18: scenario.transport_faults ........   Passed    0.01 sec
+test 19
+      Start 19: scenario.transport_deadlines
+
+19: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "transport_deadlines"
+19: Working Directory: /workspace/gecko-rp2040/work/pico-core
+19: Test timeout computed to be: 30
+19: PASS transport_deadlines: 48 checks; evidence=synthetic; physical_io=false
+19/43 Test #19: scenario.transport_deadlines .....   Passed    0.01 sec
+test 20
+      Start 20: scenario.transport_capacity
+
+20: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "transport_capacity"
+20: Working Directory: /workspace/gecko-rp2040/work/pico-core
+20: Test timeout computed to be: 30
+20: PASS transport_capacity: 278 checks; evidence=synthetic; physical_io=false
+20/43 Test #20: scenario.transport_capacity ......   Passed    0.01 sec
+test 21
+      Start 21: scenario.read_only
+
+21: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "read_only"
+21: Working Directory: /workspace/gecko-rp2040/work/pico-core
+21: Test timeout computed to be: 30
+21: PASS read_only: 52 checks; evidence=synthetic; physical_io=false
+21/43 Test #21: scenario.read_only ...............   Passed    0.01 sec
+test 22
+      Start 22: scenario.handshake
+
+22: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "handshake"
+22: Working Directory: /workspace/gecko-rp2040/work/pico-core
+22: Test timeout computed to be: 30
+22: PASS handshake: 138 checks; evidence=synthetic; physical_io=false
+22/43 Test #22: scenario.handshake ...............   Passed    0.01 sec
+test 23
+      Start 23: scenario.handshake_order
+
+23: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "handshake_order"
+23: Working Directory: /workspace/gecko-rp2040/work/pico-core
+23: Test timeout computed to be: 30
+23: PASS handshake_order: 50 checks; evidence=synthetic; physical_io=false
+23/43 Test #23: scenario.handshake_order .........   Passed    0.01 sec
+test 24
+      Start 24: scenario.duplicates
+
+24: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "duplicates"
+24: Working Directory: /workspace/gecko-rp2040/work/pico-core
+24: Test timeout computed to be: 30
+24: PASS duplicates: 62 checks; evidence=synthetic; physical_io=false
+24/43 Test #24: scenario.duplicates ..............   Passed    0.01 sec
+test 25
+      Start 25: scenario.freshness
+
+25: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "freshness"
+25: Working Directory: /workspace/gecko-rp2040/work/pico-core
+25: Test timeout computed to be: 30
+25: PASS freshness: 81 checks; evidence=synthetic; physical_io=false
+25/43 Test #25: scenario.freshness ...............   Passed    0.01 sec
+test 26
+      Start 26: scenario.reconnect
+
+26: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "reconnect"
+26: Working Directory: /workspace/gecko-rp2040/work/pico-core
+26: Test timeout computed to be: 30
+26: PASS reconnect: 105 checks; evidence=synthetic; physical_io=false
+26/43 Test #26: scenario.reconnect ...............   Passed    0.01 sec
+test 27
+      Start 27: scenario.session_faults
+
+27: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "session_faults"
+27: Working Directory: /workspace/gecko-rp2040/work/pico-core
+27: Test timeout computed to be: 30
+27: CASE handshake_tx=0 outcome=address_nack terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=data_nack terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=arbitration_lost terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=short_read terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=timeout terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=restore_failed terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=stuck_sda terminal_inhibited=true
+27: CASE handshake_tx=0 outcome=stuck_scl terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=address_nack terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=data_nack terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=arbitration_lost terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=short_read terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=timeout terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=restore_failed terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=stuck_sda terminal_inhibited=true
+27: CASE handshake_tx=1 outcome=stuck_scl terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=address_nack terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=data_nack terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=arbitration_lost terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=short_read terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=timeout terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=restore_failed terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=stuck_sda terminal_inhibited=true
+27: CASE handshake_tx=2 outcome=stuck_scl terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=address_nack terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=data_nack terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=arbitration_lost terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=short_read terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=timeout terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=restore_failed terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=stuck_sda terminal_inhibited=true
+27: CASE handshake_tx=3 outcome=stuck_scl terminal_inhibited=true
+27: CASE recovery=address_nack new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=data_nack new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=arbitration_lost new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=short_read new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=timeout new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=restore_failed new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=stuck_sda new_epoch=2 fresh_synthetic_state=true
+27: CASE recovery=stuck_scl new_epoch=2 fresh_synthetic_state=true
+27: PASS session_faults: 961 checks; evidence=synthetic; physical_io=false
+27/43 Test #27: scenario.session_faults ..........   Passed    0.01 sec
+test 28
+      Start 28: scenario.loss_recovery
+
+28: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "loss_recovery"
+28: Working Directory: /workspace/gecko-rp2040/work/pico-core
+28: Test timeout computed to be: 30
+28: PASS loss_recovery: 252 checks; evidence=synthetic; physical_io=false
+28/43 Test #28: scenario.loss_recovery ...........   Passed    0.01 sec
+test 29
+      Start 29: scenario.determinism
+
+29: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "determinism"
+29: Working Directory: /workspace/gecko-rp2040/work/pico-core
+29: Test timeout computed to be: 30
+29: PASS determinism: 95 checks; evidence=synthetic; physical_io=false
+29/43 Test #29: scenario.determinism .............   Passed    0.01 sec
+test 30
+      Start 30: scenario.temporal_boundaries
+
+30: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_scenario_tests "temporal_boundaries"
+30: Working Directory: /workspace/gecko-rp2040/work/pico-core
+30: Test timeout computed to be: 30
+30: PASS temporal_boundaries: 62 checks; evidence=synthetic; physical_io=false
+30/43 Test #30: scenario.temporal_boundaries .....   Passed    0.01 sec
+test 31
+      Start 31: http.schema
+
+31: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/http_tests.py" "schema" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+31: Working Directory: /workspace/gecko-rp2040/work/pico-core
+31: Test timeout computed to be: 60
+31: test_committed_examples_are_valid_synthetic_handoff_data (__main__.SchemaTests.test_committed_examples_are_valid_synthetic_handoff_data) ... ok
+31: test_every_scenario_matches_schema_and_null_rules (__main__.SchemaTests.test_every_scenario_matches_schema_and_null_rules) ... ok
+31: test_openapi_is_valid_and_read_only (__main__.SchemaTests.test_openapi_is_valid_and_read_only) ... ok
+31: test_schema_rejects_false_control_permission_or_invalid_values (__main__.SchemaTests.test_schema_rejects_false_control_permission_or_invalid_values) ... ok
+31:
+31: ----------------------------------------------------------------------
+31: Ran 4 tests in 0.352s
+31:
+31: OK
+31/43 Test #31: http.schema ......................   Passed    0.47 sec
+test 32
+      Start 32: http.backend
+
+32: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/http_tests.py" "backend" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+32: Working Directory: /workspace/gecko-rp2040/work/pico-core
+32: Test timeout computed to be: 60
+32: test_backend_ipc_rejects_malformed_and_nul_commands (__main__.BackendTests.test_backend_ipc_rejects_malformed_and_nul_commands) ... ok
+32: test_cache_bounds_and_backend_data_validation (__main__.BackendTests.test_cache_bounds_and_backend_data_validation) ... ok
+32: test_long_running_native_model_retires_only_complete_scripts (__main__.BackendTests.test_long_running_native_model_retires_only_complete_scripts) ... ok
+32: test_worker_maintains_session_without_http_requests (__main__.BackendTests.test_worker_maintains_session_without_http_requests) ... ok
+32: test_worker_reports_native_process_loss (__main__.BackendTests.test_worker_reports_native_process_loss) ... ok
+32:
+32: ----------------------------------------------------------------------
+32: Ran 5 tests in 0.178s
+32:
+32: OK
+32/43 Test #32: http.backend .....................   Passed    0.28 sec
+test 33
+      Start 33: http.contract
+
+33: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/http_tests.py" "contract" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+33: Working Directory: /workspace/gecko-rp2040/work/pico-core
+33: Test timeout computed to be: 60
+33: test_all_actuator_intents_are_rejected_without_advancing_core (__main__.ContractTests.test_all_actuator_intents_are_rejected_without_advancing_core) ... ok
+33: test_authentication_and_minimal_public_health (__main__.ContractTests.test_authentication_and_minimal_public_health) ... ok
+33: test_boot_unknowns_become_observed_without_changing_boot_identity (__main__.ContractTests.test_boot_unknowns_become_observed_without_changing_boot_identity) ... ok
+33: test_dead_backend_or_expired_cache_is_503_not_fake_state (__main__.ContractTests.test_dead_backend_or_expired_cache_is_503_not_fake_state) ... ok
+33: test_fault_recovers_through_existing_session_core (__main__.ContractTests.test_fault_recovers_through_existing_session_core) ... ok
+33: test_gets_do_not_tick_or_mutate_core (__main__.ContractTests.test_gets_do_not_tick_or_mutate_core) ... ok
+33: test_rate_limit_is_bounded_and_has_retry_header (__main__.ContractTests.test_rate_limit_is_bounded_and_has_retry_header) ... ok
+33: test_route_methods_and_cors_are_closed (__main__.ContractTests.test_route_methods_and_cors_are_closed) ... ok
+33: test_stale_state_is_retained_but_not_ready (__main__.ContractTests.test_stale_state_is_retained_but_not_ready) ... ok
+33:
+33: ----------------------------------------------------------------------
+33: Ran 9 tests in 0.349s
+33:
+33: OK
+33/43 Test #33: http.contract ....................   Passed    0.44 sec
+test 34
+      Start 34: http.framing
+
+34: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/http_tests.py" "framing" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+34: Working Directory: /workspace/gecko-rp2040/work/pico-core
+34: Test timeout computed to be: 60
+34: test_json_rejections (__main__.FramingTests.test_json_rejections) ... ok
+34: test_limits_and_ambiguous_framing (__main__.FramingTests.test_limits_and_ambiguous_framing) ... ok
+34: test_read_deadline_is_absolute_and_connection_closes (__main__.FramingTests.test_read_deadline_is_absolute_and_connection_closes) ... ok
+34:
+34: ----------------------------------------------------------------------
+34: Ran 3 tests in 0.341s
+34:
+34: OK
+34/43 Test #34: http.framing .....................   Passed    0.46 sec
+test 35
+      Start 35: http.startup
+
+35: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/http_tests.py" "startup" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+35: Working Directory: /workspace/gecko-rp2040/work/pico-core
+35: Test timeout computed to be: 60
+35: test_runnable_launcher_real_http_and_no_token_logging (__main__.StartupTests.test_runnable_launcher_real_http_and_no_token_logging) ... ok
+35: test_windows_executable_discovery_and_secret_provisioning (__main__.StartupTests.test_windows_executable_discovery_and_secret_provisioning) ... ok
+35:
+35: ----------------------------------------------------------------------
+35: Ran 2 tests in 0.146s
+35:
+35: OK
+35/43 Test #35: http.startup .....................   Passed    0.26 sec
+test 36
+      Start 36: runtime.config
+
+36: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_runtime_tests "config"
+36: Working Directory: /workspace/gecko-rp2040/work/pico-core
+36: Test timeout computed to be: 30
+36: config: passed
+36/43 Test #36: runtime.config ...................   Passed    0.03 sec
+test 37
+      Start 37: runtime.wifi
+
+37: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_runtime_tests "wifi"
+37: Working Directory: /workspace/gecko-rp2040/work/pico-core
+37: Test timeout computed to be: 30
+37: wifi: passed
+37/43 Test #37: runtime.wifi .....................   Passed    0.01 sec
+test 38
+      Start 38: runtime.json
+
+38: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_runtime_tests "json"
+38: Working Directory: /workspace/gecko-rp2040/work/pico-core
+38: Test timeout computed to be: 30
+38: json: passed
+38/43 Test #38: runtime.json .....................   Passed    0.12 sec
+test 39
+      Start 39: runtime.ownership
+
+39: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_runtime_tests "ownership"
+39: Working Directory: /workspace/gecko-rp2040/work/pico-core
+39: Test timeout computed to be: 30
+39: ownership: passed
+39/43 Test #39: runtime.ownership ................   Passed    0.01 sec
+test 40
+      Start 40: runtime.contract
+
+40: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/runtime_contract.py" "/workspace/gecko-rp2040/work/pico-core/gecko_runtime_probe" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core"
+40: Working Directory: /workspace/gecko-rp2040/work/pico-core
+40: Test timeout computed to be: 60
+40: test_all_scenarios_match_existing_host_and_schema (__main__.NativeContract.test_all_scenarios_match_existing_host_and_schema) ... ok
+40: test_auth_routes_limits_and_deny_every_intent (__main__.NativeContract.test_auth_routes_limits_and_deny_every_intent) ... ok
+40: test_cache_failure_freshness_and_independent_denial (__main__.NativeContract.test_cache_failure_freshness_and_independent_denial) ... ok
+40: test_framing_sizes_and_deadline (__main__.NativeContract.test_framing_sizes_and_deadline) ... ok
+40: test_json_matches_strict_host_semantics (__main__.NativeContract.test_json_matches_strict_host_semantics) ... ok
+40:
+40: ----------------------------------------------------------------------
+40: Ran 5 tests in 0.810s
+40:
+40: OK
+40/43 Test #40: runtime.contract .................   Passed    0.95 sec
+test 41
+      Start 41: runtime.network
+
+41: Test command: /workspace/gecko-rp2040/work/pico-core/gecko_network_tests
+41: Working Directory: /workspace/gecko-rp2040/work/pico-core
+41: Test timeout computed to be: 30
+41: network callbacks, half-close, slots, backpressure, timeout, error and teardown: passed
+41/43 Test #41: runtime.network ..................   Passed    0.01 sec
+test 42
+      Start 42: runtime.tools
+
+42: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/firmware_tools_tests.py"
+42: Working Directory: /workspace/gecko-rp2040/work/pico-core
+42: Test timeout computed to be: 30
+42: test_uf2_blocks_family_address_and_exact_payload (__main__.Tools.test_uf2_blocks_family_address_and_exact_payload) ... ok
+42: test_usb_payload_is_bounded_and_validated_without_io (__main__.Tools.test_usb_payload_is_bounded_and_validated_without_io) ... ok
+42:
+42: ----------------------------------------------------------------------
+42: Ran 2 tests in 0.005s
+42:
+42: OK
+42/43 Test #42: runtime.tools ....................   Passed    0.08 sec
+test 43
+      Start 43: bench.acceptance
+
+43: Test command: /workspace/gecko-rp2040/work/review/venv/bin/python "/workspace/gecko-rp2040/pico_w/tests/bench_tests.py" "/workspace/gecko-rp2040/work/pico-core/gecko_runtime_probe" "/workspace/gecko-rp2040/work/pico-core/gecko_mock_core" "/workspace/gecko-rp2040/work/bench/pwsh/pwsh"
+43: Working Directory: /workspace/gecko-rp2040/work/pico-core
+43: Test timeout computed to be: 120
+43: test_full_workflow_native_session_plus_usb_radio_doubles_and_redacted_report (__main__.FlowTests.test_full_workflow_native_session_plus_usb_radio_doubles_and_redacted_report) ... ok
+43: test_unexpected_command_acceptance_stops_workflow_before_reconnect (__main__.FlowTests.test_unexpected_command_acceptance_stops_workflow_before_reconnect) ... ok
+43: test_entrypoint_conflicting_modes_produce_redacted_bootstrap_failure (__main__.PowerShellTests.test_entrypoint_conflicting_modes_produce_redacted_bootstrap_failure) ... ok
+43: test_entrypoint_verify_only_from_path_with_spaces_and_no_hardware (__main__.PowerShellTests.test_entrypoint_verify_only_from_path_with_spaces_and_no_hardware) ... ok
+43: test_setup_probe_preserves_nonzero_exit_without_dumping_stderr (__main__.PowerShellTests.test_setup_probe_preserves_nonzero_exit_without_dumping_stderr) ... ok
+43: test_artifact_hash_structure_reserved_flash_safety_and_source_identity (__main__.SupportTests.test_artifact_hash_structure_reserved_flash_safety_and_source_identity) ... ok
+43: test_crlf_checkouts_have_identical_firmware_and_source_digests (__main__.SupportTests.test_crlf_checkouts_have_identical_firmware_and_source_digests) ... ok
+43: test_device_identity_mismatch_and_legacy_firmware_stop_before_provisioning (__main__.SupportTests.test_device_identity_mismatch_and_legacy_firmware_stop_before_provisioning) ... ok
+43: test_fragmented_serial_reply_survives_empty_read_timeouts (__main__.SupportTests.test_fragmented_serial_reply_survives_empty_read_timeouts) ... ok
+43: test_isolated_open_sets_sdk_dtr_without_bootsel_or_baud_reset (__main__.SupportTests.test_isolated_open_sets_sdk_dtr_without_bootsel_or_baud_reset) ... ok
+43: test_only_matching_pico_vid_pid_and_unambiguous_port_are_selected (__main__.SupportTests.test_only_matching_pico_vid_pid_and_unambiguous_port_are_selected) ... ok
+43: test_only_private_usb_ipv4_literals_are_accepted (__main__.SupportTests.test_only_private_usb_ipv4_literals_are_accepted) ... ok
+43: test_report_is_allowlisted_not_exception_or_response_scrubbing (__main__.SupportTests.test_report_is_allowlisted_not_exception_or_response_scrubbing) ... ok
+43: test_serial_short_write_timeout_flood_and_non_ascii_fail_closed (__main__.SupportTests.test_serial_short_write_timeout_flood_and_non_ascii_fail_closed) ... ok
+43: test_tokens_reuse_without_overwrite_and_reject_oversized_files (__main__.SupportTests.test_tokens_reuse_without_overwrite_and_reject_oversized_files) ... ok
+43: test_verify_only_never_enumerates_or_opens_usb_and_writes_report (__main__.SupportTests.test_verify_only_never_enumerates_or_opens_usb_and_writes_report) ... ok
+43: test_absolute_http_deadline_is_not_renewed_by_dripping_bytes (__main__.TransportTests.test_absolute_http_deadline_is_not_renewed_by_dripping_bytes) ... ok
+43: test_real_loopback_http_mock_is_readable_through_bounded_client (__main__.TransportTests.test_real_loopback_http_mock_is_readable_through_bounded_client) ... ok
+43: test_redirect_is_returned_without_forwarding_credentials (__main__.TransportTests.test_redirect_is_returned_without_forwarding_credentials) ... ok
+43: test_response_bounds_duplicate_lengths_and_invalid_json_are_rejected (__main__.TransportTests.test_response_bounds_duplicate_lengths_and_invalid_json_are_rejected) ... ok
+43:
+43: ----------------------------------------------------------------------
+43: Ran 20 tests in 1.461s
+43:
+43: OK
+43/43 Test #43: bench.acceptance .................   Passed    1.65 sec
+
+100% tests passed, 0 tests failed out of 43
+
+Total Test time (real) =   5.31 sec
+Exit status: 0

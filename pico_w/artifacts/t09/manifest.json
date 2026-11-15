@@ -1,11 +1,12 @@
 {
   "format": 1,
-  "firmware": "0.2.0-pico-sim",
+  "firmware": "0.2.1-pico-sim",
+  "firmware_build_id": "20f99ff090bc5b039b8669cdd1cea6d6a9d9897b602b7d49ce5516cb31008425",
   "api": "1.0.0",
   "purpose": "offline-reviewed simulation only; not hardware validated",
-  "source_tree_sha256": "4cf314b113ca0fe5c846d8b2118d9c6c30cac1258efec7fe1dcbc0e81613a77b",
-  "uf2_sha256": "318705798e15d8f3c19e93842529b8a6a8be31db0ac45910bd332a40411dd135",
-  "uf2_bytes": 930816,
+  "source_tree_sha256": "7d7b6f2e131f2150b6f4346be1108fc59322c6487907de553defcdc25b0e9bca",
+  "uf2_sha256": "b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e",
+  "uf2_bytes": 933376,
   "inputs": {
     "format": 1,
     "board": "pico_w",
@@ -36,12 +37,12 @@
     "actuator_execution": false
   },
   "memory": {
-    "flash_bytes": 465192,
-    "main_ram_static_bytes": 125192,
+    "flash_bytes": 466560,
+    "main_ram_static_bytes": 126668,
     "libc_heap_bytes": 8192,
     "core0_stack_bytes": 16384,
     "scratch_stack_reservation_bytes": 4096,
-    "unused_main_ram_gap_bytes": 112376,
+    "unused_main_ram_gap_bytes": 110900,
     "max_project_function_stack_bytes": 2528,
     "largest_project_stack_frames": [
       [
@@ -50,13 +51,13 @@
         "static"
       ],
       [
-        936,
-        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
+        1096,
+        "pico_w/firmware/main.cpp:122:5:int main()",
         "static"
       ],
       [
         936,
-        "pico_w/firmware/main.cpp:45:6:constprop(std::string_view)",
+        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
         "static"
       ],
       [

@@ -101,3 +101,19 @@ The UF2 is a combined binary under those respective terms, **not blanket MIT**.
 Keep the notices with redistributed copies. This resolves dependency reuse for
 this RP2040 simulation build only; it supplies no missing legacy grant and makes
 no legal, hardware compatibility, deployment or release-readiness claim.
+
+
+## Isolated bench preparation follow-up
+
+New bench PowerShell/Python tools, USB formatter, identity and reconnect-policy
+changes are independently authored within the existing scoped MIT coverage.
+The regression reproducer reads only the T09 newly authored MIT provision_usb.py,
+not legacy implementation/source-extraction artifacts. No inherited implementation
+is copied. USB/radio doubles are authored tests, not licensed device recordings.
+
+The user-run venv installs external pyserial 3.5 (BSD) and jsonschema 4.23.0 (MIT),
+pinned in tools/requirements-bench.txt; their installed dependencies are not vendored
+or bundled with UF2. PowerShell 7.4.6 is an external offline-test executable, not
+redistributed. Native SDK/radio/runtime terms and accompanying notices still apply
+to the refreshed 0.2.1 binary. No new legacy grant, physical compatibility claim or
+permission to redistribute modified inherited source follows from this work.

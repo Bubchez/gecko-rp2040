@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "gecko/runtime.hpp"
+#include "gecko/usb.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -12,6 +13,13 @@ Credentials credentials() {
   Credentials c;CHECK(parse_provision("PROVISION 74657374 70617373776f7264 0123456789abcdef0123456789abcdef unit-1",c));return c;
 }
 void config() {
+  std::array<char,513> info{};
+  UsbInfo s{"00000000000000000000000000000000","unit-1","192.168.1.2",true,WifiState::Online,1,0};
+  CHECK(format_usb_info(s,info)>0);CHECK(check_json(info.data()).valid);
+  const std::string longest_id(64,'x');s.device_id=longest_id;s.ip="255.255.255.255";s.wifi=WifiState::Unprovisioned;s.attempts=s.reconnects=UINT32_MAX;
+  const auto info_size=format_usb_info(s,info);CHECK(info_size>64 && info_size<512);CHECK(check_json(info.data()).valid);
+  s.ip="999.1.1.1";CHECK(format_usb_info(s,info)==0);CHECK(info[0]==0);
+  s.ip="1.2.3.4";s.boot_id="wrong";CHECK(format_usb_info(s,info)==0);
   auto c=credentials();CHECK(c.valid());ConfigRecord a{},b{},invalid{};Credentials out;std::uint32_t seq=99;
   CHECK(!decode_record(invalid,out,seq));CHECK(seq==99);CHECK(!out.valid());
   CHECK(encode_record(c,1,a));CHECK(decode_record(a,out,seq));CHECK(seq==1);CHECK(out.valid());
@@ -32,12 +40,18 @@ void wifi() {
   CHECK(p.tick(14999,false,false)==WifiAction::None);CHECK(p.tick(15000,false,false)==WifiAction::Disconnect);
   CHECK(p.tick(15999,false,false)==WifiAction::None);CHECK(p.tick(16000,false,false)==WifiAction::Connect);
   CHECK(p.tick(16001,true,false)==WifiAction::None);CHECK(p.state()==WifiState::Online);
+  CHECK(!p.reconnect(UINT64_MAX));
   CHECK(p.tick(16002,false,false)==WifiAction::Disconnect);CHECK(p.reconnects()==1);
   CHECK(p.tick(17002,false,false)==WifiAction::Connect);
   CHECK(p.tick(17003,false,true)==WifiAction::Disconnect);
   std::uint64_t now=17003;
   for(unsigned i=0;i<100;++i) {now+=60001;CHECK(p.tick(now,false,false)==WifiAction::Connect);CHECK(p.tick(now+1,false,true)==WifiAction::Disconnect);}
   p.configure(false,now);CHECK(p.state()==WifiState::Unprovisioned);CHECK(p.tick(now+100000,true,false)==WifiAction::None);
+  CHECK(!p.reconnect(now));p.configure(true,now);
+  CHECK(p.tick(now,false,false)==WifiAction::Connect);CHECK(p.tick(now+1,true,false)==WifiAction::None);
+  const auto before=p.reconnects();CHECK(p.reconnect(now+2));CHECK(p.reconnects()==before+1);
+  CHECK(!p.reconnect(now+3));CHECK(p.tick(now+1001,true,false)==WifiAction::None);
+  CHECK(p.tick(now+1002,false,false)==WifiAction::Connect);CHECK(p.tick(now+1003,true,false)==WifiAction::None);
 }
 void json() {
   for(auto s:{"{}","[]","{\"a\":[true,false,null,-0.2e-10]}","{\"a\":{\"a\":1},\"b\":{\"a\":2}}","{\"x\":\"\\ud83d\\ude00\"}","{\"n\":1e-999}"}) CHECK(check_json(s).valid);

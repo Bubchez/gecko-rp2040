@@ -85,6 +85,7 @@ class NativeContract(unittest.TestCase):
                             actual = answer["body"]
                             validate(path.title(), actual)
                             if path == "capabilities":
+                                self.assertEqual(actual.pop("firmware_build_id"), "0" * 64)
                                 actual["firmware_version"] = document["firmware_version"]
                             if path == "diagnostics":
                                 actual.pop("wifi")

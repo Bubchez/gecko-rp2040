@@ -1,0 +1,355 @@
+Isolated bench preparation, 2026-11-15 UTC; compilation only, no hardware access.
+
+$ work/review/venv/bin/python pico_w/tools/build_firmware.py --build-name bench-reproduce --artifacts work/bench/reproduce-artifacts --clean
+PICO_SDK_PATH is /workspace/gecko-rp2040/work/t09/pico-sdk
+Target board (PICO_BOARD) is 'pico_w'.
+Using board configuration from /workspace/gecko-rp2040/work/t09/pico-sdk/src/boards/include/boards/pico_w.h
+Pico Platform (PICO_PLATFORM) is 'rp2040'.
+Defaulting compiler (PICO_COMPILER) to 'pico_arm_cortex_m0plus_gcc' since not specified.
+Configuring toolchain based on PICO_COMPILER 'pico_arm_cortex_m0plus_gcc'
+Defaulting PICO_GCC_TRIPLE to 'arm-none-eabi'
+-- The C compiler identification is GNU 13.3.1
+-- The CXX compiler identification is GNU 13.3.1
+-- The ASM compiler identification is GNU
+-- Found assembler: /workspace/gecko-rp2040/work/t09/xpack-arm-none-eabi-gcc-13.3.1-1.1/bin/arm-none-eabi-gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /workspace/gecko-rp2040/work/t09/xpack-arm-none-eabi-gcc-13.3.1-1.1/bin/arm-none-eabi-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /workspace/gecko-rp2040/work/t09/xpack-arm-none-eabi-gcc-13.3.1-1.1/bin/arm-none-eabi-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+Build type is Release
+-- Found Python3: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 (found version "3.12.14") found components: Interpreter
+TinyUSB available at /workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/hw/bsp/rp2040; enabling build support for USB.
+CMake Warning at /workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_btstack/CMakeLists.txt:11 (message):
+  btstack submodule has not been initialized; Pico W BLE support will be
+  unavailable.
+
+              hint: try 'git submodule update --init' from your SDK directory (/workspace/gecko-rp2040/work/t09/pico-sdk).
+
+
+cyw43-driver available at /workspace/gecko-rp2040/work/t09/pico-sdk/lib/cyw43-driver
+lwIP available at /workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip
+Pico W Wi-Fi build support available.
+-- Found Python3: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 (found suitable version "3.12.14", minimum required is "3.10") found components: Interpreter
+-- Configuring done (0.6s)
+-- Generating done (0.1s)
+-- Build files have been written to: /workspace/gecko-rp2040/work/t09/bench-reproduce
+[0/2] Re-checking globbed directories...
+[1/211] Creating directories for 'pioasmBuild'
+[2/211] No download step for 'pioasmBuild'
+[3/211] No update step for 'pioasmBuild'
+[4/211] No patch step for 'pioasmBuild'
+[5/211] Building ASM object pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.o
+[6/211] Linking ASM executable pico-sdk/src/rp2040/boot_stage2/bs2_default.elf
+[7/211] Generating bs2_default.bin
+[8/211] Generating bs2_default_padded_checksummed.S
+[9/211] Building ASM object pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.o
+[10/211] Performing configure step for 'pioasmBuild'
+Not searching for unused variables given on the command line.
+loading initial cache file /workspace/gecko-rp2040/work/t09/bench-reproduce/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/tmp/pioasmBuild-cache-Release.cmake
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/gecko-rp2040/work/t09/bench-reproduce/pioasm
+[11/211] Performing build step for 'pioasmBuild'
+[1/12] Building CXX object CMakeFiles/pioasm.dir/pio_disassembler.cpp.o
+[2/12] Building CXX object CMakeFiles/pioasm.dir/main.cpp.o
+[3/12] Building CXX object CMakeFiles/pioasm.dir/c_sdk_output.cpp.o
+[4/12] Building CXX object CMakeFiles/pioasm.dir/gen/lexer.cpp.o
+[5/12] Building CXX object CMakeFiles/pioasm.dir/hex_output.cpp.o
+[6/12] Building CXX object CMakeFiles/pioasm.dir/python_output.cpp.o
+[7/12] Building CXX object CMakeFiles/pioasm.dir/gen/parser.cpp.o
+[8/12] Building CXX object CMakeFiles/pioasm.dir/json_output.cpp.o
+[9/12] Building CXX object CMakeFiles/pioasm.dir/ada_output.cpp.o
+[10/12] Building CXX object CMakeFiles/pioasm.dir/go_output.cpp.o
+[11/12] Building CXX object CMakeFiles/pioasm.dir/pio_assembler.cpp.o
+[12/12] Linking CXX executable pioasm
+[12/211] Performing install step for 'pioasmBuild'
+[0/1] Install the project...
+-- Install configuration: "Release"
+[13/211] Completed 'pioasmBuild'
+[14/211] Generating cyw43_bus_pio_spi.pio.h
+[15/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/network.cpp.o
+[16/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/main.cpp.o
+[17/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/core/assembly.cpp.o
+[18/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/core/protocol.cpp.o
+[19/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/transport/simulated.cpp.o
+[20/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/session/session.cpp.o
+[21/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/model.cpp.o
+[22/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/config.cpp.o
+[23/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/json.cpp.o
+[24/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/maintenance.cpp.o
+[25/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/usb.cpp.o
+[26/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.o
+[27/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.o
+[28/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2040/pico_platform/platform.c.o
+[29/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_platform_common/common.c.o
+[30/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_platform_panic/panic.c.o
+[31/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/hardware_claim/claim.c.o
+[32/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_sync/sync.c.o
+[33/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/pico_w/src/simulation/api.cpp.o
+[34/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o
+[35/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.o
+[36/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_sync/sem.c.o
+[37/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_irq/irq.c.o
+[38/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_sync/lock_core.c.o
+[39/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_sync/critical_section.c.o
+[40/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_sync/mutex.c.o
+[41/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_time/timeout_helper.c.o
+[42/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_time/time.c.o
+[43/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_timer/timer.c.o
+[44/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_util/datetime.c.o
+[45/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_util/queue.c.o
+[46/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/common/pico_util/pheap.c.o
+[47/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_uart/uart.c.o
+[48/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_pll/pll.c.o
+[49/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.o
+[50/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.o
+[51/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.o
+[52/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_ticks/ticks.c.o
+[53/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_bootrom/bootrom_lock.c.o
+[54/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.o
+[55/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_boot_lock/boot_lock.c.o
+[56/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_flash/flash.c.o
+[57/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_divider/divider.S.o
+[58/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.o
+[59/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_runtime/runtime.c.o
+[60/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init.c.o
+[61/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o
+[62/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o
+[63/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o
+[64/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_divider/divider_hardware.S.o
+[65/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_double/double_aeabi_rp2040.S.o
+[66/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_double/double_init_rom_rp2040.c.o
+[67/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o
+[68/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o
+[69/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_float/float_aeabi_rp2040.S.o
+[70/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_float/float_init_rom_rp2040.c.o
+[71/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_double/double_math.c.o
+[72/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o
+[73/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_float/float_math.c.o
+[74/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
+[75/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_malloc/malloc.c.o
+[76/211] Building CXX object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cxx_options/new_delete.cpp.o
+[77/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.o
+[78/211] Building ASM object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_crt0/crt0.S.o
+[79/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_atomic/atomic.c.o
+[80/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_clib_interface/newlib_interface.c.o
+[81/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.o
+[82/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_stdio/stdio.c.o
+[83/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.o
+[84/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.o
+[85/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.o
+[86/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_flash/flash.c.o
+[87/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_xip_cache/xip_cache.c.o
+[88/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.o
+[89/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.o
+[90/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/device/usbd_control.c.o
+[91/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/audio/audio_device.c.o
+[92/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/device/usbd.c.o
+[93/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/dfu/dfu_device.c.o
+[94/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/dfu/dfu_rt_device.c.o
+[95/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.o
+[96/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/hid/hid_device.c.o
+[97/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/midi/midi_device.c.o
+[98/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/msc/msc_device.c.o
+[99/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/net/ecm_rndis_device.c.o
+[100/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/net/ncm_device.c.o
+[101/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/usbtmc/usbtmc_device.c.o
+[102/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/video/video_device.c.o
+[103/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/class/vendor/vendor_device.c.o
+[104/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/tusb.c.o
+[105/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o
+[106/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.o
+[107/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_lwip/lwip_nosys.c.o
+[108/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_async_context/async_context_base.c.o
+[109/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_rand/rand.c.o
+[110/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/init.c.o
+[111/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/def.c.o
+[112/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/dns.c.o
+[113/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ip.c.o
+[114/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/inet_chksum.c.o
+[115/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/mem.c.o
+[116/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/memp.c.o
+[117/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/netif.c.o
+[118/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/raw.c.o
+[119/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/stats.c.o
+[120/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/pbuf.c.o
+[121/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/sys.c.o
+[122/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/altcp.c.o
+[123/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/altcp_alloc.c.o
+[124/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/altcp_tcp.c.o
+[125/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/tcp.c.o
+[126/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/tcp_in.c.o
+[127/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/timeouts.c.o
+[128/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/tcp_out.c.o
+[129/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/udp.c.o
+[130/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/autoip.c.o
+[131/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/etharp.c.o
+[132/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/dhcp.c.o
+[133/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/icmp.c.o
+[134/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/igmp.c.o
+[135/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/ip4_frag.c.o
+[136/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/ip4.c.o
+[137/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/acd.c.o
+[138/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/dhcp6.c.o
+[139/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv4/ip4_addr.c.o
+[140/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/ethip6.c.o
+[141/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/icmp6.c.o
+[142/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/inet6.c.o
+[143/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/ip6.c.o
+[144/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/ip6_addr.c.o
+[145/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/ip6_frag.c.o
+[146/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/mld6.c.o
+[147/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/core/ipv6/nd6.c.o
+[148/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/api_lib.c.o
+[149/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/api_msg.c.o
+[150/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/err.c.o
+[151/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/if_api.c.o
+[152/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/netbuf.c.o
+[153/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/netdb.c.o
+[154/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/netifapi.c.o
+[155/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/sockets.c.o
+[156/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/api/tcpip.c.o
+[157/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/bridgeif.c.o
+[158/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ethernet.c.o
+[159/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/bridgeif_fdb.c.o
+[160/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/slipif.c.o
+[161/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/lowpan6_common.c.o
+[162/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/lowpan6.c.o
+[163/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/zepif.c.o
+[164/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/lowpan6_ble.c.o
+[165/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/ccp.c.o
+[166/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/auth.c.o
+[167/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/chap-md5.c.o
+[168/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/chap_ms.c.o
+[169/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/chap-new.c.o
+[170/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/demand.c.o
+[171/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/eap.c.o
+[172/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/ecp.c.o
+[173/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/eui64.c.o
+[174/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/fsm.c.o
+[175/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/ipcp.c.o
+[176/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/ipv6cp.c.o
+[177/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/lcp.c.o
+[178/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/magic.c.o
+[179/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/mppe.c.o
+[180/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/multilink.c.o
+[181/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/ppp.c.o
+[182/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/pppapi.c.o
+[183/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/pppcrypt.c.o
+[184/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/pppoe.c.o
+[185/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/pppol2tp.c.o
+[186/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/pppos.c.o
+[187/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/upap.c.o
+[188/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/utils.c.o
+[189/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/vj.c.o
+[190/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/polarssl/arc4.c.o
+[191/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/polarssl/des.c.o
+[192/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/polarssl/md4.c.o
+[193/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/polarssl/md5.c.o
+[194/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/lwip/src/netif/ppp/polarssl/sha1.c.o
+[195/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_arch/cyw43_arch_poll.c.o
+[196/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_arch/cyw43_arch_threadsafe_background.c.o
+[197/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_arch/cyw43_arch_freertos.c.o
+[198/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_arch/cyw43_arch.c.o
+[199/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.c.o
+[200/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/cyw43-driver/src/cyw43_stats.c.o
+[201/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/cyw43-driver/src/cyw43_lwip.c.o
+[202/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/cyw43-driver/src/cyw43_ctrl.c.o
+[203/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/lib/cyw43-driver/src/cyw43_ll.c.o
+[204/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cybt_shared_bus.c.o
+[205/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cybt_shared_bus_driver.c.o
+[206/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_pio/pio.c.o
+[207/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_dma/dma.c.o
+[208/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/hardware_exception/exception.c.o
+[209/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_async_context/async_context_poll.c.o
+[210/211] Building C object CMakeFiles/gecko_pico_sim.dir/workspace/gecko-rp2040/work/t09/pico-sdk/src/rp2_common/pico_cyw43_driver/cyw43_driver.c.o
+[211/211] Linking CXX executable gecko_pico_sim.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:      466560 B         2 MB     22.25%
+             RAM:      134860 B       256 KB     51.45%
+       SCRATCH_X:           0 B         4 KB      0.00%
+       SCRATCH_Y:          4 KB         4 KB    100.00%
+{
+  "uf2_sha256": "b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e",
+  "memory": {
+    "flash_bytes": 466560,
+    "main_ram_static_bytes": 126668,
+    "libc_heap_bytes": 8192,
+    "core0_stack_bytes": 16384,
+    "scratch_stack_reservation_bytes": 4096,
+    "unused_main_ram_gap_bytes": 110900,
+    "max_project_function_stack_bytes": 2528,
+    "largest_project_stack_frames": [
+      [
+        2528,
+        "pico_w/src/simulation/json.cpp:172:11:gecko::runtime::JsonCheck gecko::runtime::check_json(std::string_view)",
+        "static"
+      ],
+      [
+        1096,
+        "pico_w/firmware/main.cpp:122:5:int main()",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        928,
+        "pico_w/src/session/session.cpp:147:6:void gecko::ReadOnlySession::on_rx(const gecko::TransportEvent&, uint64_t)",
+        "static"
+      ],
+      [
+        800,
+        "pico_w/src/core/assembly.cpp:31:16:gecko::AssemblyResult gecko::Assembler::push(gecko::Bytes, gecko::FragmentContext, gecko::DecodeMode)",
+        "static"
+      ],
+      [
+        664,
+        "pico_w/src/simulation/model.cpp:113:8:void gecko::simulation::Model::status(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        632,
+        "pico_w/src/transport/simulated.cpp:175:7:gecko::Error gecko::SimulatedTransport::advance(uint64_t)",
+        "static"
+      ],
+      [
+        592,
+        "pico_w/src/transport/simulated.cpp:158:6:void gecko::SimulatedTransport::receive(const gecko::RxPlan&)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/transport/simulated.cpp:123:6:void gecko::SimulatedTransport::finish(gecko::Error, gecko::Phase, uint64_t, bool)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/simulation/json.cpp:98:6:bool gecko::runtime::{anonymous}::Json::scalar()",
+        "static"
+      ]
+    ],
+    "caveat": "Static link/per-function evidence only; SDK call chains, interrupt nesting and runtime watermarks unverified",
+    "forbidden_symbols_absent": true
+  }
+}
+
+Exit status: 0
+
+Two clean build directories produced byte-identical UF2 files and equal manifests.
+UF2 SHA256: b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e
+Native input ID: 20f99ff090bc5b039b8669cdd1cea6d6a9d9897b602b7d49ce5516cb31008425

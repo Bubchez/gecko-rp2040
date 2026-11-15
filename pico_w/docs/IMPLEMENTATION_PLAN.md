@@ -10,6 +10,9 @@ cross-compilation and offline validation only. Stop before flashing, deployment 
 The original architecture/backlog below is retained as planning history; its
 physical bus, deployment and control stages remain unapproved and unimplemented.
 T09's native Pico/Wi-Fi simulation code is compiled but not hardware validated.
+The isolated-bench follow-up adds a single Windows verification/provisioning/check
+runner and redacted reports; see ISOLATED_BENCH.md. It performs no automatic
+flashing, and no device access occurs in this workspace. T10 stays out of scope.
 
 Repository: `Bubchez/gecko-rp2040`; branch: `feature/pico-w-bridge`.
 Baseline: `3baacda4c0e3ae58e8b014692cf5f146db2b3318`.

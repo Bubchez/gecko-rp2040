@@ -74,3 +74,10 @@ tested compiler, not compatibility or timing on Gecko hardware.
 Promotion of a candidate requires complete attributed raw captures, transaction
 boundaries, electrical validation, actual C/S filenames and a reviewed checksum/
 ordering policy. Until then, keep candidate mode explicit and physical work blocked.
+
+
+Isolated-bench follow-up: USB identity, Wi-Fi link restart and a Windows runner are
+software additions only. Offline native/API, byte/time doubles and PowerShell Linux
+checks do not promote any protocol entry to hardware verified. A future successful
+isolated report still describes synthetic Gecko data; it proves neither electrical
+GPIO inactivity nor physical pack protocol/timing. See BENCH_REVIEW.md.

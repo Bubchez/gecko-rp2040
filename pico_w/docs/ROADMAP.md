@@ -1,9 +1,11 @@
-# Roadmap after T09 offline firmware
+# Roadmap after T09 isolated bench preparation
 
 Updated 2026-11-15. The user's follow-up authorizes T09 firmware implementation,
 compilation and offline validation only, following T08. Gecko GPIO stays inactive;
 physical I2C transport and actuator execution are excluded. Flashing, deployment,
 T10, Agile Alert/Pi Zero changes and later hardware/control gates remain out of scope.
+The latest follow-up adds isolated bench preparation and a user-run Windows tool;
+no device access, flashing or deployment is performed in this workspace.
 
 ## Delivered
 
@@ -46,6 +48,15 @@ T10, Agile Alert/Pi Zero changes and later hardware/control gates remain out of 
   additional host contract/fault/record/callback tests and Windows bench handoff.
   USB/Wi-Fi/flash/GPIO/ARM runtime tests are explicitly unverified, not waived.
 
+- T09 follow-up: single PowerShell entry point, verified 0.2.1 identity/UF2,
+  automatic CDC/IP discovery, protected/reused local token, bounded USB provisioning,
+  read-only API/schema/auth/freshness/null/diagnostic checks, local Wi-Fi restart
+  and recovery, and an allowlisted versioned report. No auto-flasher or T10.
+- Reproduced fragmented-ACK bug fixed; CRLF source identity normalized; SDK DTR/TX
+  sizing addressed with bounded INFO formatting. Offline tests include native
+  session/API flow, USB/radio doubles, loopback HTTP, redaction and Linux PowerShell.
+  Actual Windows USB/ACL/radio and electrical/runtime resource tests remain unverified.
+
 ## Original task mapping
 
 | Plan task | Status | Remaining acceptance work |
@@ -59,17 +70,19 @@ T10, Agile Alert/Pi Zero changes and later hardware/control gates remain out of 
 | T06 Simulated transport | Complete for host scope | Scripted transport, phase faults, exact TX matching, bounded queues, deterministic time/trace and recovery tests delivered. Real bus fidelity remains unverified. |
 | T07 Session/policy | Complete for synthetic read-only scope | Handshake, profile/session invalidation, snapshot freshness, reconnection/backoff, passive/default modes and defense-in-depth read-only tests delivered. No physical readiness claim. |
 | T08 Host HTTP | Complete for host read-only scope | Frozen v1/OpenAPI, runnable mock using existing core, authentication/freshness/null/fault/denial tests, Windows procedure and Agile Alert handoff delivered. No application changes. |
-| T09 Pico simulation | Implementation, compilation and offline validation complete | Reproducible UF2; shared session/native v1 compatibility; Wi-Fi/USB/configuration code; bounded resources. Real-device tests unverified. Stop before flashing/deployment. |
+| T09 Pico simulation / bench preparation | Implementation and offline validation complete; isolated user-run tooling supplied | Reproducible UF2; shared session/native v1 compatibility; Wi-Fi/USB/configuration code; bounded resources. Real-device tests unverified. Stop before flashing/deployment. |
 | T10–T14 Physical transport/hardware | Not authorized | Physical I2C, electrical review, bench/capture/read-only pack gates remain separate; no hardware adapter is compiled or implemented. |
 | T15–T17 Control/release | Deferred | Command lifecycle, supervised validation, release permissions and reviewed merge. |
 
 ## Next development slice
 
-1. Review T09 source, UF2/manifest, native contract comparisons, memory evidence and
-   [integration findings](T09_REVIEW.md). The handoff changes no external application.
-2. **Stop before flashing, deployment or T10.** A later explicit task must authorize
-   isolated-device USB/Wi-Fi/flash/GPIO/resource validation. No Gecko wiring/control
-   is authorized by this firmware delivery or its example procedure.
+1. Review the bench command/report schema, [bench findings](BENCH_REVIEW.md), updated
+   UF2/manifest and offline evidence. The original [integration findings](T09_REVIEW.md)
+   remain relevant. The handoff changes no external application.
+2. Use [ISOLATED_BENCH.md](ISOLATED_BENCH.md) on the Windows bench with an isolated
+   Pico; return only its redacted report. The runner never flashes; any firmware
+   loading is manual. No actual hardware result is claimed here. Stop before T10,
+   Gecko wiring, physical I2C or actuator control.
 3. Keep protocol/electrical/recording gates separate. Missing Gecko hardware and
    upstream source permissions remain external blockers for physical transport or
    legacy code reuse; they do not block this independent simulation build.

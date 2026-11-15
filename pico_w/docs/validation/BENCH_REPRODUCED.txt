@@ -1,0 +1,9 @@
+T09 newly authored MIT provisioning CLI reproduction, only injected byte/time/serial doubles.
+$ work/review/venv/bin/python pico_w/tests/reproduce_t09_serial.py
+Reproduced T09 defect: No confirmation. Do not assume configuration succeeded; USB/flash require hardware validation.
+Corrected bounded SerialLink: CONFIG_SAVED
+Both executions used only injected byte/time/serial doubles. No USB opened.
+
+Exit status: 0
+
+No original Arduino/ESPHome or historical source-extraction code was read/executed.

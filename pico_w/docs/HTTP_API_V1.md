@@ -18,7 +18,10 @@ idempotency promises are withdrawn from v1. No control queue/history exists.
 Within v1, additive response fields and new diagnostic enum values are permitted;
 clients ignore unknown response fields and handle unknown enums conservatively.
 Changing units, types, names, null semantics or allowing writes requires a new
-major contract. Firmware/build version, API version, marketing hardware V2 and
+major contract. The isolated-bench follow-up optionally adds capabilities.firmware_build_id,
+a 64-character native input digest. Host responses may omit it. Firmware 0.2.1
+and USB INFO report the same ID as the reviewed artifact; this is correlation,
+not authenticated attestation/flash readback. API version remains 1.0.0. Firmware/build version, API version, marketing hardware V2 and
 observed C/S filename versions are separate concepts.
 
 The host binds only `127.0.0.1`, default port **8765**, HTTP/1.1. It is a local

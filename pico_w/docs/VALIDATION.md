@@ -1,4 +1,66 @@
-# Current T09 offline firmware validation
+# Current isolated bench preparation validation
+
+Run date: 2026-11-15 UTC. Branch `feature/pico-w-bridge`, T09 review base
+`45437cf7fbcd3c821a275a036a1423777985b826`; separate instruction commit `690de03`.
+The Windows bench tooling and required simulation firmware changes are prepared
+and validated offline. **No Pico/USB/radio access, flashing, deployment, Gecko
+connection, physical I2C, actuator execution, external application changes or T10.**
+
+| Check | Actual result | Evidence |
+|---|---|---|
+| Clean strict-warning Debug / ASan+UBSan | **43/43 CTest groups pass** | [BENCH_DEBUG.txt](validation/BENCH_DEBUG.txt) |
+| Clean optimized Release | **43/43 CTest groups pass** | [BENCH_RELEASE.txt](validation/BENCH_RELEASE.txt) |
+| Existing regressions | All previous 42 groups retained; core/scenario/HTTP checks and 80,000 deterministic malformed/mutation inputs unchanged | Both transcripts |
+| New bench acceptance | **20 Python methods pass**, including native session/API with USB/radio doubles, real loopback HTTP, full flow/recovery, fail-stop on 202, short/fragmented/flooded serial, identity/port/UF2 gates, token reuse/migration, CRLF normalization, response bounds/deadlines/no redirects and report redaction canaries | bench.acceptance in both transcripts |
+| USB formatter / Wi-Fi policy | Bounded max INFO data/malformed fields; local online-only reconnect, no reboot/session reset, backoff/counters; existing fault/read-only scenarios pass | runtime.config/wifi and native contract groups |
+| Reproduced T09 defect | Actual prior MIT provisioning main loses CONFIG_ + SAVED fragments and exits; corrected SerialLink accepts the same complete acknowledgement with injected I/O only | [BENCH_REPRODUCED.txt](validation/BENCH_REPRODUCED.txt) |
+| PowerShell 7.4.6 on Linux | Parser/execution, VerifyOnly from paths with spaces, redacted bootstrap failure, native nonzero/stderr suppression; additional live VerifyOnly smoke | bench.acceptance + [BENCH_POWERSHELL.txt](validation/BENCH_POWERSHELL.txt) |
+| Report contract/example | Versioned strict JSON Schema; actual VerifyOnly report validates, hardware_accessed false and 11 device stages not_run | [BENCH_VERIFY_ONLY_REPORT.json](validation/BENCH_VERIFY_ONLY_REPORT.json) |
+| RP2040/Pico W clean Release build | Pass with pinned SDK/toolchain; compiled identity checked in binary; memory and no-I2C/control/core1 symbol gates pass | [BENCH_CROSS.txt](validation/BENCH_CROSS.txt) |
+| Reproducibility | Second clean output directory: byte-identical UF2 and identical manifests | [BENCH_REPRODUCIBLE.txt](validation/BENCH_REPRODUCIBLE.txt) |
+| Scope/dependency preservation | Protected original tree unchanged; default branch unchanged; SDK/submodules clean and existing notices unchanged | [BENCH_AUDIT.txt](validation/BENCH_AUDIT.txt) |
+
+Current artifact: firmware **0.2.1-pico-sim**, API **1.0.0**, under
+[pico_w/artifacts/t09](../artifacts/t09/README.md). UF2 SHA256:
+`b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e`.
+Native input ID: `20f99ff090bc5b039b8669cdd1cea6d6a9d9897b602b7d49ce5516cb31008425`.
+Raw linked image **466560 bytes**, UF2 **933376 bytes**; main RAM statics
+**126668**, libc heap **8192**, core0 stack **16384**, scratch-stack reservation
+**4096**, unused main RAM gap **110900**, maximum project function frame **2528**.
+These are static link/per-function budgets, not runtime watermarks. SDK/IRQ call
+chains and actual allocator/stack headroom remain unverified; API memory fields
+stay null. Fixed USB TX FIFO is 1024 bytes; INFO producer is capped at 512.
+
+Host tools: GCC 14.2.0, CMake/CTest 3.31.6, Python 3.12.14, existing pinned
+validators and pyserial 3.5. PowerShell 7.4.6 Linux archive checksum is recorded
+in BENCH_POWERSHELL.txt; it is an external test tool, not a redistributed dependency.
+Each test/build command and exit status is retained; transcript trailing whitespace
+is removed only. Source/identity comparison normalizes CRLF to LF. No native
+Windows/PowerShell 5.1, Windows ACL/USB, association/DHCP/RF, physical GPIO levels,
+flash persistence/endurance or Pico ARM-runtime test is claimed.
+
+## Reproduce / operator handoff
+
+Use the host Debug/Release commands retained below, additionally configuring
+`-DGECKO_POWERSHELL_TEST_EXECUTABLE=<pwsh-or-powershell-path>` for the three
+PowerShell checks. Without PowerShell those methods explicitly skip; they did
+**not** skip in these runs. Cross commands remain in PICO_SIM_FIRMWARE.md and
+recorded transcripts. Bench-only runtime packages are in tools/requirements-bench.txt;
+full host regressions still need tests/requirements.txt.
+
+The single Windows command and redacted report instructions are in
+[ISOLATED_BENCH.md](ISOLATED_BENCH.md). That tool has no auto-flashing/BOOTSEL/drive
+copy code. Its isolated-device mode has been tested with doubles only here;
+VerifyOnly was run with real PowerShell and no device access. SDK DTR/64-byte FIFO
+constraints are inspection findings, not hardware measurements. Build IDs correlate
+reported software and reviewed inputs; they are not signed attestation/flash readback.
+[BENCH_REVIEW.md](BENCH_REVIEW.md) distinguishes reproduced defects, host proofs,
+SDK inspection and remaining hardware assumptions. Protocol evidence classifications
+and unresolved legacy source permissions remain unchanged. Stop before T10.
+
+---
+
+# Retained T09 offline firmware validation
 
 Run date: 2026-11-15 UTC. Branch `feature/pico-w-bridge`, T08 base
 `177d2ca6f6815c5655442b747a82a0102a5298d6`; separate T09 instructions commit

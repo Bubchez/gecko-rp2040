@@ -32,7 +32,7 @@ target_include_directories(gecko_core PUBLIC include)
 target_link_libraries(gecko_core PUBLIC gecko_build_options)
 
 add_library(gecko_runtime STATIC src/simulation/config.cpp src/simulation/json.cpp
-  src/simulation/api.cpp src/simulation/maintenance.cpp)
+  src/simulation/api.cpp src/simulation/maintenance.cpp src/simulation/usb.cpp)
 target_link_libraries(gecko_runtime PUBLIC gecko_core)
 
 # Native host process with bounded stdin/stdout IPC; never imports a physical HAL.
@@ -85,4 +85,11 @@ if(BUILD_TESTING)
   set_tests_properties(runtime.network PROPERTIES TIMEOUT 30)
   add_test(NAME runtime.tools COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/firmware_tools_tests.py)
   set_tests_properties(runtime.tools PROPERTIES TIMEOUT 30)
+  find_program(GECKO_POWERSHELL_TEST_EXECUTABLE NAMES pwsh powershell)
+  if(NOT GECKO_POWERSHELL_TEST_EXECUTABLE)
+    set(GECKO_POWERSHELL_TEST_EXECUTABLE none)
+  endif()
+  add_test(NAME bench.acceptance COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/bench_tests.py
+    $<TARGET_FILE:gecko_runtime_probe> $<TARGET_FILE:gecko_mock_core> ${GECKO_POWERSHELL_TEST_EXECUTABLE})
+  set_tests_properties(bench.acceptance PROPERTIES TIMEOUT 120)
 endif()

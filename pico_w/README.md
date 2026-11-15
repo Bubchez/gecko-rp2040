@@ -6,6 +6,12 @@ All observations remain synthetic. No physical I2C transport or actuator executi
 is compiled in; Gecko GPIO is inactive. USB/Wi-Fi/hardware behaviour is unverified.
 Work stops before flashing, deployment or T10.
 
+Isolated bench preparation now has one Windows entry point:
+`pico_w\tools\bench.ps1 -IsolatedPico` (offline: `-VerifyOnly`). It verifies the
+reviewed 0.2.1 image, provisions only when needed, checks API/reconnection and writes
+a redacted report. It never flashes or connects to Gecko. Actual hardware and
+Windows USB/ACL behaviour remain unverified.
+
 Target: Gecko IN.YE-3-H3.0 / YE-3-CE, V2; replace the Nano and ESP32 with one
 Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
 
@@ -15,6 +21,8 @@ Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
 - [Windows-compatible startup and scenarios](docs/HOST_MOCK.md)
 - [Pinned Pico simulation build and future Windows bench procedure](docs/PICO_SIM_FIRMWARE.md)
 - [T09 integration review](docs/T09_REVIEW.md)
+- [Single-command Windows isolated bench and redacted reports](docs/ISOLATED_BENCH.md)
+- [Bench preparation review and reproduced defects](docs/BENCH_REVIEW.md)
 - [Agile Alert integration handoff](docs/AGILE_ALERT_HANDOFF.md)
 - [Repository review and verification evidence](docs/REPOSITORY_REVIEW.md)
 - [Offline source characterization](review/run_characterization.py)

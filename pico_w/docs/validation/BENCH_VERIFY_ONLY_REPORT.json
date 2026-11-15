@@ -1,0 +1,111 @@
+{
+  "report_version": "1.0",
+  "tool_version": "0.1.0",
+  "started_at": "2026-11-15T19:48:24.428386+00:00",
+  "platform": "linux",
+  "overall": "verified_only",
+  "blocker": "ok",
+  "isolation_declared": false,
+  "hardware_accessed": false,
+  "artifact": {
+    "sha256": "b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e",
+    "build_id": "20f99ff090bc5b039b8669cdd1cea6d6a9d9897b602b7d49ce5516cb31008425",
+    "firmware_version": "0.2.1-pico-sim",
+    "uf2_bytes": 933376
+  },
+  "checks": [
+    {
+      "id": "artifact",
+      "status": "pass",
+      "code": "ok",
+      "duration_ms": 5,
+      "metrics": {}
+    },
+    {
+      "id": "usb_identity",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "provisioning",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "wifi_online",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "http_identity",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "http_authentication",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "http_read_only",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "http_malformed",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "status_freshness",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "diagnostics",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "wifi_reconnection",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    },
+    {
+      "id": "post_recovery",
+      "status": "not_run",
+      "code": "ok",
+      "duration_ms": 0,
+      "metrics": {}
+    }
+  ],
+  "unverified": [
+    "electrical_gpio_levels",
+    "flash_readback_attestation",
+    "heap_stack_irq_watermarks",
+    "real_access_point_outage",
+    "flash_power_loss_endurance",
+    "windows_usb_if_not_run_on_windows",
+    "all_gecko_electrical_bus_protocol_behaviour"
+  ]
+}

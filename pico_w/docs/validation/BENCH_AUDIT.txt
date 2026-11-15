@@ -1,0 +1,116 @@
+Isolated bench preparation final OFFLINE audit, 2026-11-15 UTC. No device access.
+
+$ git branch --show-current
+feature/pico-w-bridge
+Exit status: 0
+
+$ git remote get-url origin
+https://github.com/Bubchez/gecko-rp2040.git
+Exit status: 0
+
+$ git diff --exit-code 3baacda4c0e3ae58e8b014692cf5f146db2b3318 -- . :!pico_w :!AGENTS.md
+Exit status: 0
+
+$ git diff --exit-code 45437cf -- pico_w/third_party
+Exit status: 0
+
+$ git ls-remote --symref origin HEAD refs/heads/master
+ref: refs/heads/master	HEAD
+3baacda4c0e3ae58e8b014692cf5f146db2b3318	HEAD
+3baacda4c0e3ae58e8b014692cf5f146db2b3318	refs/heads/master
+Exit status: 0
+
+$ git -C work/t09/pico-sdk rev-parse HEAD
+a1438dff1d38bd9c65dbd693f0e5db4b9ae91779
+Exit status: 0
+
+$ git -C work/t09/pico-sdk submodule status
+-501e6d2b86e6c92bfb9c390bcf55709938e25ac1 lib/btstack
+ dd7568229f3bf7a37737b9e1ef250c26efe75b23 lib/cyw43-driver (dd75682)
+ 77dcd25a72509eb83f72b033d219b1d40cd8eb95 lib/lwip (77dcd25)
+-107ea89daaefb9867ea9121002fbbdf926780e98 lib/mbedtls
+ 86ad6e56c1700e85f1c5678607a762cfe3aa2f47 lib/tinyusb (86ad6e5)
+Exit status: 0
+
+$ git -C work/t09/pico-sdk status --porcelain
+Exit status: 0
+
+$ git diff --check
+Exit status: 0
+
+Current artifact source/native IDs match repository inputs; LF/CRLF normalized.
+Two clean UF2 builds and final manifests identical.
+Actual PowerShell VerifyOnly report matches strict report schema; hardware_accessed=false.
+43/43 groups pass with 20 bench methods in both configurations; no PowerShell skips.
+Dependency notices unmodified; no legacy implementation copied.
+All untracked deliverables under pico_w/. Protected baseline/default branch unchanged.
+{
+  "firmware": "0.2.1-pico-sim",
+  "firmware_build_id": "20f99ff090bc5b039b8669cdd1cea6d6a9d9897b602b7d49ce5516cb31008425",
+  "source_tree_sha256": "7d7b6f2e131f2150b6f4346be1108fc59322c6487907de553defcdc25b0e9bca",
+  "uf2_sha256": "b52df4fe6a469e9b658cc40f36fee68c61ef8644b5f38f64a6d002112a94d69e",
+  "uf2_bytes": 933376,
+  "memory": {
+    "flash_bytes": 466560,
+    "main_ram_static_bytes": 126668,
+    "libc_heap_bytes": 8192,
+    "core0_stack_bytes": 16384,
+    "scratch_stack_reservation_bytes": 4096,
+    "unused_main_ram_gap_bytes": 110900,
+    "max_project_function_stack_bytes": 2528,
+    "largest_project_stack_frames": [
+      [
+        2528,
+        "pico_w/src/simulation/json.cpp:172:11:gecko::runtime::JsonCheck gecko::runtime::check_json(std::string_view)",
+        "static"
+      ],
+      [
+        1096,
+        "pico_w/firmware/main.cpp:122:5:int main()",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        928,
+        "pico_w/src/session/session.cpp:147:6:void gecko::ReadOnlySession::on_rx(const gecko::TransportEvent&, uint64_t)",
+        "static"
+      ],
+      [
+        800,
+        "pico_w/src/core/assembly.cpp:31:16:gecko::AssemblyResult gecko::Assembler::push(gecko::Bytes, gecko::FragmentContext, gecko::DecodeMode)",
+        "static"
+      ],
+      [
+        664,
+        "pico_w/src/simulation/model.cpp:113:8:void gecko::simulation::Model::status(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        632,
+        "pico_w/src/transport/simulated.cpp:175:7:gecko::Error gecko::SimulatedTransport::advance(uint64_t)",
+        "static"
+      ],
+      [
+        592,
+        "pico_w/src/transport/simulated.cpp:158:6:void gecko::SimulatedTransport::receive(const gecko::RxPlan&)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/transport/simulated.cpp:123:6:void gecko::SimulatedTransport::finish(gecko::Error, gecko::Phase, uint64_t, bool)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/simulation/json.cpp:98:6:bool gecko::runtime::{anonymous}::Json::scalar()",
+        "static"
+      ]
+    ],
+    "caveat": "Static link/per-function evidence only; SDK call chains, interrupt nesting and runtime watermarks unverified",
+    "forbidden_symbols_absent": true
+  }
+}

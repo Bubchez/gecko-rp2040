@@ -12,9 +12,10 @@
 - Put new firmware/core/tests under `pico_w/`. Do not change `arduino/`,
   `components/`, `esphome/`, original examples/assets/tools, the separate Pi Zero
   application, or Agile Alert. Do not merge into the default branch.
-- This milestone is host-only: no physical bus communication, hardware deployment,
-  GPIO/I2C adapters or actuator execution. Byte encoding is offline data only.
-  Broader plan milestones do not authorize hardware work.
+- T09 is authorized only for simulation firmware implementation, compilation and
+  offline validation. Keep Gecko GPIO inactive. Exclude physical I2C transport and
+  actuator execution entirely. No flashing, deployment, T10 or real bus work.
+  Byte encoding is offline data only. Later roadmap gates require authorization.
 - Before copying implementation code, establish its exact license and provenance.
   Missing upstream permissions block reuse, not independently authored code from
   documented protocol facts. Preserve attribution; never blanket-relicense legacy
@@ -35,8 +36,11 @@
   `-DPython3_EXECUTABLE=<absolute venv Python path>` when CMake selects Python.
   The runnable host mock needs only standard Python, CMake and a C++17 compiler.
   Read `HOST_MOCK.md` and `HTTP_API_V1.md` before changing HTTP behavior. Keep all
-  v1 operations read-only; HTTP reads must not advance the session. Stop before T09
-  unless a later user instruction authorizes more work.
+  v1 operations read-only; HTTP reads must not advance the session. T09 firmware
+  must share the existing protocol/session model and preserve API semantics.
+  Pin SDK/toolchain inputs; run host sanitizer/Release and offline cross-build
+  checks. Mark all hardware, USB, Wi-Fi, flash and timing tests unverified until
+  performed under separate authorization. Stop before flashing, deployment or T10.
 - Keep scratch/build files in `work/` and out of commits. Check the final diff,
   original-tree preservation and tests before committing. Keep review, instructions
   and implementation commits distinct. Never claim tests or pushes that did not run.

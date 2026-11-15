@@ -1,8 +1,9 @@
 # Pico W bridge: portable host core
 
-Status: **independently authored portable core and host tests implemented**.
-No physical bus communication, SDK/hardware target, network server or control
-execution exists in this milestone. All candidate inbound behavior is synthetic.
+Status: **portable core, deterministic transport simulation and read-only session
+management implemented with host tests (T06–T07)**. No physical bus communication,
+SDK/hardware target, network/HTTP server or control execution exists. All candidate
+inbound behavior remains synthetic. Work stops before T08.
 
 Target: Gecko IN.YE-3-H3.0 / YE-3-CE, V2; replace the Nano and ESP32 with one
 Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
@@ -15,6 +16,7 @@ Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
 - [Protocol facts and assumptions](docs/PROTOCOL_EVIDENCE.md)
 - [Licensing and no-reuse decision](docs/LICENSING.md)
 - [Current validation and committed test evidence](docs/VALIDATION.md)
+- [Transport/session interfaces, policies and regression findings](docs/SIMULATION.md)
 
 The original `arduino/`, `components/`, `esphome/`, tools, examples/assets and Pi
 Zero application remain unchanged. Agile Alert is outside this repository's work.
@@ -28,13 +30,19 @@ cmake --build work/pico-core
 ctest --test-dir work/pico-core --output-on-failure
 ```
 
-Core entry points are in `include/gecko/protocol.hpp` and `assembly.hpp`. Inputs
+Core entry points are in `include/gecko/protocol.hpp` and `assembly.hpp`; synthetic
+transport/session interfaces are in `transport.hpp` and `session.hpp`. Inputs
 are explicit byte views; results carry errors and owned bounded values. The caller
 must inspect a Result before using its value. Views must describe actual live
 memory of the stated size; a C++ byte view cannot authenticate dangling pointers.
 Malformed input is rejected without physical side effects or partially published
 state. Candidate XML/clock/status/reassembly require explicit
 `DecodeMode::SyntheticCandidate`; default decoding fails closed.
+
+`ReadOnlySession` defaults to inactive. Synthetic participation also requires an
+explicit candidate C82/S81 profile selection; that is a fixture binding, not a
+verified pack profile. Session and transport both deny actuator requests. Only
+exact GO/handshake ACK packets can enter the simulated transaction engine.
 
 The historical source-extraction probe is preserved as an initial-review artifact;
 it is not part of the new core or acceptance suite and should not be run as new

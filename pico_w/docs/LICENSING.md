@@ -57,3 +57,9 @@ implementation dependencies. Future SDK/network libraries need their own review.
 The task's licensing prerequisite is satisfied for the new milestone by this
 no-reuse decision and scoped notice. It is **not** satisfied for future reuse of
 upstream code; obtain the actual grant before changing that decision.
+
+T06–T07 update: `src/transport/`, `src/session/`, their public headers and scenario
+tests are independently authored within the same scoped MIT coverage. Test helpers
+reuse this repository's newly authored MIT core-test conventions, not upstream
+Arduino/ESPHome code. No upstream source extraction, permission waiver, third-party
+source import or new license grant was used for this milestone.

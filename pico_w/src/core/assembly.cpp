@@ -44,6 +44,7 @@ AssemblyResult Assembler::push(Bytes raw, FragmentContext context, DecodeMode mo
   if (!active_) {
     active_ = true;
     first_us_ = context.at_us;
+    buffer_.first_at_us = context.at_us;
     session_ = context.session;
     loss_generation_ = context.loss_generation;
     std::copy(raw.data, raw.data + header_.size(), header_.begin());
@@ -59,6 +60,7 @@ AssemblyResult Assembler::push(Bytes raw, FragmentContext context, DecodeMode mo
   std::copy(payload.data, payload.data + payload.size, buffer_.data.data() + buffer_.size);
   buffer_.size += payload.size;
   last_us_ = context.at_us;
+  buffer_.complete_at_us = context.at_us;
   ++next_index_;  // At most 512 one-byte fragments can fit; cannot overflow.
   if (parsed.value.more) return {AssemblyState::Incomplete, Error::None, {}};
   AssemblyResult out{AssemblyState::Complete, Error::None, buffer_};

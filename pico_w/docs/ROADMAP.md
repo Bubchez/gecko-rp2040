@@ -1,7 +1,7 @@
-# Roadmap after the portable-core milestone
+# Roadmap after T06–T07
 
 Updated 2026-11-15. The user's follow-up authorizes host implementation after the
-initial review, while keeping all physical bus work/deployment and Agile Alert
+initial review and then T06–T07, while keeping all physical bus work/deployment and Agile Alert
 out of scope. This status supersedes the initial plan's blanket implementation
 pause; it does not approve later hardware/control gates.
 
@@ -22,6 +22,14 @@ pause; it does not approve later hardware/control gates.
   attributed fixtures and deterministic malformed/mutation coverage.
 - Scoped new-code MIT notice and no-reuse decision. Upstream grant remains missing;
   upstream implementation copying is not authorized by this milestone.
+- T06 deterministic transport: exact byte/time expectations; write/read/STOP/restore
+  phases, scripted outcomes and RX; bounded event/trace queues with loss reporting.
+- T07 synthetic session: ACK-correlated handshake, explicit profile/order selection,
+  deadlines/duplicates, fresh snapshots, periodic renewal, bounded seeded backoff,
+  reconnection, old-epoch rejection and terminal participation shutdown.
+- Independent read-only gates in session and transport; physical communication is
+  permanently absent. Acquisition-time, interrupted-assembly and fault-state
+  regressions are fixed and tested; see [SIMULATION.md](SIMULATION.md).
 
 ## Original task mapping
 
@@ -32,23 +40,21 @@ pause; it does not approve later hardware/control gates.
 | T02 Build/CI | Host build/tests delivered | SDK/toolchain pinning, Pico target and hosted CI workflow are deferred. No SDK is downloaded by this build. |
 | T03 Corpus | Complete documented/derived command fixtures + synthetic helpers delivered | Full recorded inbound corpus and capture tooling remain unavailable. |
 | T04 Safe codec | Delivered within documented command/candidate-frame scope | Promote inbound integrity rules only with evidence; no generic/pump raw-control interface. |
-| T05 Status/reassembly | Bounded synthetic implementation delivered | v50, combined tails, other lengths, real profile whitelist and live freshness/state store remain blocked/deferred. |
-| T06 Simulated transport | Not started | Deterministic transport event model, TX expectations and phase failures; current synthetic assembler tests are not a transport simulator. |
-| T07 Session/policy | Not started | Handshake/deadline/backoff state machine and independent read-only policy; current frame decoding is not a session implementation. |
-| T08 Host HTTP | Proposal only | Schema freeze, host adapter/mock and contract tests; Pi application stays separate. |
+| T05 Status/reassembly | Synthetic implementation + acquisition metadata delivered | v50, combined tails, other lengths and real profile validation remain blocked/deferred. |
+| T06 Simulated transport | Complete for host scope | Scripted transport, phase faults, exact TX matching, bounded queues, deterministic time/trace and recovery tests delivered. Real bus fidelity remains unverified. |
+| T07 Session/policy | Complete for synthetic read-only scope | Handshake, profile/session invalidation, snapshot freshness, reconnection/backoff, passive/default modes and defense-in-depth read-only tests delivered. No physical readiness claim. |
+| T08 Host HTTP | Not started; stop boundary | Proposal remains unchanged. Schema freeze, host adapter/mock and contract tests require a subsequent task; Pi application stays separate. |
 | T09–T14 Hardware/network | Not authorized now | Pico/Wi-Fi/physical I²C, electrical review, bench/capture/read-only pack gates. |
 | T15–T17 Control/release | Deferred | Command lifecycle, supervised validation, release permissions and reviewed merge. |
 
 ## Next development slice
 
-1. Review the core's public byte/result interfaces and evidence labels. Do not
-   promote candidate parsers merely because host tests pass.
-2. Build T06 host-only scripted transport against these types, including expected
-   outbound bytes, address/data NACK, short read, arbitration/restore failure, loss
-   and injected monotonic time. No SDK, GPIO or real network transport.
-3. Add T07 session/read-only policy tests using synthetic scenarios, with every
-   unverified wire assumption in PROTOCOL_EVIDENCE.md. Then implement T08 HTTP mock.
-4. Obtain permission/capture evidence independently before considering code reuse
+1. Review the T06–T07 interfaces, findings, acquisition-age semantics and scenario
+   evidence. Do not promote candidate behavior merely because host tests pass.
+2. Stop before T08 as requested. A later task can agree the HTTP schema and build
+   the host mock using these read-only session/snapshot interfaces; no HTTP or
+   network implementation is included now.
+3. Obtain permission/capture evidence independently before considering code reuse
    or physical transport. No schedule can eliminate those external dependencies.
 
 See [VALIDATION.md](VALIDATION.md) for actual commands/results and

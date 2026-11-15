@@ -19,6 +19,8 @@ struct Assembly {
   std::array<std::uint8_t, max_assembly_bytes> data{};
   std::size_t size{0};
   bool hardware_verified{false};
+  // Acquisition bounds from synthetic transport metadata, not pack timestamps.
+  std::uint64_t first_at_us{0}, complete_at_us{0};
   Bytes bytes() const noexcept { return {size <= data.size() ? data.data() : nullptr, size}; }
 };
 enum class AssemblyState { Incomplete, Complete, Rejected };

@@ -1,4 +1,76 @@
-# Portable core validation
+# Current T06–T07 validation
+
+Run date: 2026-11-15. Branch `feature/pico-w-bridge`; implementation base
+`d7d300beb9e368b66c69a76ce01009b317c66ad5`. T06–T07 are completed for the host,
+synthetic, read-only scope. T08 has not started. No physical communication,
+hardware deployment, upstream extraction, SDK/network imports or Agile Alert
+changes occurred. The original implementation remains unchanged.
+
+| Check | Result | Committed evidence |
+|---|---|---|
+| Debug, ASan/UBSan, strict warnings, clean rebuild | **30/30 CTest groups passed**, no sanitizer diagnostics | [T06–T07 Debug transcript](validation/T06_T07_DEBUG.txt) |
+| Optimized Release, strict warnings, clean rebuild | **30/30 CTest groups passed**; checks remain active under NDEBUG | [T06–T07 Release transcript](validation/T06_T07_RELEASE.txt) |
+| Original 16 core groups | Still pass, including 60,000 deterministic malformed/mutated inputs and 15 attributed command fixtures | Included in both new transcripts |
+| New 14 scenario groups | Pass; 32 handshake-write/outcome failure cases and eight complete recovery cases are named in the logs | `scenario.*` output in both new transcripts |
+| Regression reproduction | Three initial integration regressions failed before fixes; a separate delayed-activation regression also failed before its fix. All pass in final suites | Findings and remedies in [SIMULATION.md](SIMULATION.md) |
+
+Tool versions remain GCC 14.2.0, CMake/CTest 3.31.6 and Python 3.12.14. The existing
+C++17 strict warning and sanitizer settings below apply to the new modules/tests.
+The exact clean-build and verbose CTest commands, phase/outcome case names and exit
+statuses are in the transcripts. These are locally executed host results committed
+to GitHub, not GitHub Actions or hardware validation claims.
+
+Reproduce with the existing root instructions:
+
+```sh
+cmake -S pico_w -B work/pico-core -DGECKO_SANITIZERS=ON -DCMAKE_BUILD_TYPE=Debug
+cmake --build work/pico-core --clean-first -j 2
+ctest --test-dir work/pico-core -V --output-on-failure
+cmake -S pico_w -B work/pico-core-release -DGECKO_SANITIZERS=OFF -DCMAKE_BUILD_TYPE=Release
+cmake --build work/pico-core-release --clean-first -j 2
+ctest --test-dir work/pico-core-release -V --output-on-failure
+```
+
+## Added acceptance coverage
+
+- Exact expected TX bytes and time windows, correlated completion, write/read/STOP/
+  restore roles, read length, explicit NACK/arbitration/short-read/timeouts/stuck
+  lines/restore failure, all four arbitration and deadline phases. An unknown
+  partial write outcome remains possibly applied rather than definitely unsent.
+- Two-layer read-only enforcement; no control request can enqueue a transaction.
+  Passive/default modes do not respond or become ready. Only explicit synthetic
+  C82/S81 candidate selection can start the host handshake.
+- GO/ACK completion gating, file order and unknown-version rejection, bounded
+  duplicates, progress deadlines that duplicates cannot extend, missing clock/LO/
+  status, no overlapping GO, and periodic epoch renewal.
+- Freshness based on the oldest fragment; completion time separately reported.
+  Snapshot queries, echoes/noise/commands/malformed frames, old sessions and partial
+  or already-stale assemblies cannot refresh current state.
+- Expiry, interleaving, bad synthetic index, bus collision and event overflow reset
+  partial state/profile readiness. Prior observations remain stale on disconnect;
+  only a full new handshake plus fresh status restores readiness.
+- Capped seeded jitter/backoff and retry exhaustion; complete recovery for each
+  outcome; explicit local restart after terminal restoration failure. Terminal
+  state deactivates participation, including implicit simulated read replies.
+- Fixed-seed role-trace reproducibility, bounded script/event/trace capacities,
+  complete drop accounting, uint64 boundaries and clock-regression rejection;
+  delayed activation cannot retroactively enable listening.
+
+No new raw-parser memory defect was reproduced. The integration blockers, their
+failed-before/fixed-after regression observations and interface hardening are
+recorded in SIMULATION.md. Original historical 16-group records follow unchanged
+and remain available in the old HOST_DEBUG/HOST_RELEASE transcripts; their limits
+refer to the earlier core-only milestone, not the current T06–T07 implementation.
+
+All evidence classifications in [PROTOCOL_EVIDENCE.md](PROTOCOL_EVIDENCE.md) remain
+in force. No wire timing/integrity, true pack compatibility or physical readiness
+has been established. Upstream implementation reuse is still prohibited by the
+unresolved grant; the new code is independently authored under the scoped license.
+Next action: review these results and interfaces. **Stop before T08.**
+
+---
+
+# Historical portable core validation (d7d300b)
 
 Run date: 2026-11-15. Repository `Bubchez/gecko-rp2040`, branch
 `feature/pico-w-bridge`. Original implementation baseline:

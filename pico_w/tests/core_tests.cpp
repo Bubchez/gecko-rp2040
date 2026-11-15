@@ -407,6 +407,7 @@ void assembly_test() {
     if (i!=2) CHECK(r.state==AssemblyState::Incomplete && r.message.size==0);
     else {
       CHECK(r.state==AssemblyState::Complete && r.message.size==162);
+      CHECK(r.message.first_at_us==0 && r.message.complete_at_us==2000);
       CHECK(std::equal(payload.begin(),payload.end(),r.message.data.begin()));
       CHECK(!r.message.hardware_verified && a.buffered()==0);
       CHECK(decode_status(r.message.bytes(),CandidateProfile::InYtV51,candidate));

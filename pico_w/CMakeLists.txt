@@ -26,7 +26,8 @@ elseif(GECKO_SANITIZERS)
 endif()
 
 # Host-only, independently authored code. No SDK, GPIO, I2C or network imports.
-add_library(gecko_core STATIC src/core/protocol.cpp src/core/assembly.cpp)
+add_library(gecko_core STATIC src/core/protocol.cpp src/core/assembly.cpp
+  src/transport/simulated.cpp src/session/session.cpp)
 target_include_directories(gecko_core PUBLIC include)
 target_link_libraries(gecko_core PUBLIC gecko_build_options)
 
@@ -45,4 +46,12 @@ if(BUILD_TESTING)
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_fixtures.py
     ${CMAKE_CURRENT_SOURCE_DIR}/fixtures/protocol-examples.json $<TARGET_FILE:gecko_core_tests>)
   set_tests_properties(core.fixtures PROPERTIES TIMEOUT 30)
+  add_executable(gecko_scenario_tests tests/scenario_tests.cpp)
+  target_link_libraries(gecko_scenario_tests PRIVATE gecko_core)
+  foreach(case IN ITEMS transport_success transport_faults transport_deadlines
+      transport_capacity read_only handshake handshake_order duplicates freshness
+      reconnect session_faults loss_recovery determinism temporal_boundaries)
+    add_test(NAME scenario.${case} COMMAND gecko_scenario_tests ${case})
+    set_tests_properties(scenario.${case} PROPERTIES TIMEOUT 30)
+  endforeach()
 endif()

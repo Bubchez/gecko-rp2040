@@ -16,10 +16,13 @@ enum class Error {
   None, InvalidView, Bounds, Empty, TooLong, InvalidHex, InvalidLength,
   InvalidHeader, UnknownType, Checksum, InvalidValue, UnknownVersion,
   UnverifiedProtocol, UnsupportedProfile, Timeout, Sequence, SessionChanged,
-  TransportLoss, ClockRegression
+  TransportLoss, ClockRegression, ReadOnly, Disabled, Busy, UnexpectedTx,
+  ScenarioCapacity, AddressNack, DataNack, ArbitrationLost, ShortRead,
+  RestoreFailed, StuckSda, StuckScl, RxCollision, HandshakeOrder,
+  StaleState, RetryExhausted, ClockRange
 };
 
-template <typename T> struct Result {
+template <typename T> struct [[nodiscard]] Result {
   T value{};
   Error error{Error::None};
   explicit operator bool() const noexcept { return error == Error::None; }

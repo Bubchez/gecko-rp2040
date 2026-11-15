@@ -1,9 +1,10 @@
-# Pico W bridge: portable host core
+# Pico W bridge: portable core and simulation firmware
 
-Status: **T08 complete: read-only API v1, OpenAPI schema and runnable host mock
-backed by the portable session core**. Local loopback HTTP is implemented. No
-physical bus communication, SDK/Pico target/deployment or actuator execution exists.
-All model data remains synthetic. Work stops before T09.
+Status: **T09 simulation firmware implemented and cross-compiled for Pico W**,
+sharing the protocol/session model with the T08 host mock and read-only API v1.
+All observations remain synthetic. No physical I2C transport or actuator execution
+is compiled in; Gecko GPIO is inactive. USB/Wi-Fi/hardware behaviour is unverified.
+Work stops before flashing, deployment or T10.
 
 Target: Gecko IN.YE-3-H3.0 / YE-3-CE, V2; replace the Nano and ESP32 with one
 Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
@@ -12,6 +13,8 @@ Raspberry Pi Pico W (RP2040), serving an independently developed Pi Zero W app.
 - [Final read-only HTTP JSON API v1](docs/HTTP_API_V1.md)
 - [OpenAPI 3.1 contract](api/openapi-v1.json)
 - [Windows-compatible startup and scenarios](docs/HOST_MOCK.md)
+- [Pinned Pico simulation build and future Windows bench procedure](docs/PICO_SIM_FIRMWARE.md)
+- [T09 integration review](docs/T09_REVIEW.md)
 - [Agile Alert integration handoff](docs/AGILE_ALERT_HANDOFF.md)
 - [Repository review and verification evidence](docs/REPOSITORY_REVIEW.md)
 - [Offline source characterization](review/run_characterization.py)

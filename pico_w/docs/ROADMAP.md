@@ -1,9 +1,9 @@
-# Roadmap after T08
+# Roadmap after T09 offline firmware
 
-Updated 2026-11-15. The user's follow-up authorizes host implementation after the
-initial review, T06–T07 and now T08, while keeping all physical bus work/deployment and Agile Alert
-out of scope. This status supersedes the initial plan's blanket implementation
-pause; it does not approve later hardware/control gates.
+Updated 2026-11-15. The user's follow-up authorizes T09 firmware implementation,
+compilation and offline validation only, following T08. Gecko GPIO stays inactive;
+physical I2C transport and actuator execution are excluded. Flashing, deployment,
+T10, Agile Alert/Pi Zero changes and later hardware/control gates remain out of scope.
 
 ## Delivered
 
@@ -37,6 +37,14 @@ pause; it does not approve later hardware/control gates.
   compiler/executable path handling, integration handoff for Agile Alert, and
   complete regression/HTTP schema/contract/startup tests. Native Windows execution
   was not available; portable startup handling and a full Linux build/run were tested.
+- T09 shared no-exception synthetic model, bounded native v1 parser/serializer,
+  independent maintenance and stale-cache recovery, raw lwIP adapter, USB credential
+  records and Wi-Fi reconnection/diagnostics implementation. Native code compiles
+  for RP2040/Pico W; all observations remain synthetic.
+- Immutable Pico SDK/submodule and compiler SHA256 pins, reproducible UF2 tooling,
+  static flash/RAM/heap/stack and forbidden-symbol gates, dependency licence notices,
+  additional host contract/fault/record/callback tests and Windows bench handoff.
+  USB/Wi-Fi/flash/GPIO/ARM runtime tests are explicitly unverified, not waived.
 
 ## Original task mapping
 
@@ -44,24 +52,27 @@ pause; it does not approve later hardware/control gates.
 |---|---|---|
 | T00 Review | Host-core follow-up authorized | Future scope changes remain reviewed. |
 | T01 Licensing | No-reuse path resolved for new implementation | Original source/asset grant and Geckolib provenance remain unresolved; do not copy or relicense those files. |
-| T02 Build/CI | Host build/tests delivered | SDK/toolchain pinning, Pico target and hosted CI workflow are deferred. No SDK is downloaded by this build. |
+| T02 Build/CI | Host tests plus pinned Pico cross-build delivered | Host build stays SDK-independent; separate firmware tool downloads verified SDK/compiler inputs. Hosted CI is deferred. |
 | T03 Corpus | Complete documented/derived command fixtures + synthetic helpers delivered | Full recorded inbound corpus and capture tooling remain unavailable. |
 | T04 Safe codec | Delivered within documented command/candidate-frame scope | Promote inbound integrity rules only with evidence; no generic/pump raw-control interface. |
 | T05 Status/reassembly | Synthetic implementation + acquisition metadata delivered | v50, combined tails, other lengths and real profile validation remain blocked/deferred. |
 | T06 Simulated transport | Complete for host scope | Scripted transport, phase faults, exact TX matching, bounded queues, deterministic time/trace and recovery tests delivered. Real bus fidelity remains unverified. |
 | T07 Session/policy | Complete for synthetic read-only scope | Handshake, profile/session invalidation, snapshot freshness, reconnection/backoff, passive/default modes and defense-in-depth read-only tests delivered. No physical readiness claim. |
 | T08 Host HTTP | Complete for host read-only scope | Frozen v1/OpenAPI, runnable mock using existing core, authentication/freshness/null/fault/denial tests, Windows procedure and Agile Alert handoff delivered. No application changes. |
-| T09–T14 Hardware/network | Stop before T09; not authorized now | Pico/Wi-Fi/physical I²C, electrical review, bench/capture/read-only pack gates remain separate. |
+| T09 Pico simulation | Implementation, compilation and offline validation complete | Reproducible UF2; shared session/native v1 compatibility; Wi-Fi/USB/configuration code; bounded resources. Real-device tests unverified. Stop before flashing/deployment. |
+| T10–T14 Physical transport/hardware | Not authorized | Physical I2C, electrical review, bench/capture/read-only pack gates remain separate; no hardware adapter is compiled or implemented. |
 | T15–T17 Control/release | Deferred | Command lifecycle, supervised validation, release permissions and reviewed merge. |
 
 ## Next development slice
 
-1. Review the final API/schema, Windows startup, Agile Alert handoff and T08 test
-   evidence. The handoff specifies integration work; it does not modify Agile Alert.
-2. Stop before T09 as requested. No Pico target, Wi-Fi, physical transport or
-   deployment is included; a later task must explicitly authorize any further scope.
-3. Obtain permission/capture evidence independently before considering code reuse
-   or physical transport. No schedule can eliminate those external dependencies.
+1. Review T09 source, UF2/manifest, native contract comparisons, memory evidence and
+   [integration findings](T09_REVIEW.md). The handoff changes no external application.
+2. **Stop before flashing, deployment or T10.** A later explicit task must authorize
+   isolated-device USB/Wi-Fi/flash/GPIO/resource validation. No Gecko wiring/control
+   is authorized by this firmware delivery or its example procedure.
+3. Keep protocol/electrical/recording gates separate. Missing Gecko hardware and
+   upstream source permissions remain external blockers for physical transport or
+   legacy code reuse; they do not block this independent simulation build.
 
 See [VALIDATION.md](VALIDATION.md) for actual commands/results and
 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for the original architecture/gates.

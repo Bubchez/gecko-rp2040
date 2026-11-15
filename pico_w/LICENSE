@@ -1,8 +1,10 @@
 Scope: Only newly authored portable-core implementation, host tests and build
-scripts/API definitions under include/, src/, tests/, tools/, api/ and
+scripts/API definitions under include/, src/, tests/, tools/, api/, firmware/ and
 CMakeLists.txt in this directory.
 This notice does not relicense original Arduino/ESPHome files, assets, inherited
 source or the historical review tool. See docs/LICENSING.md.
+Third-party notices and compiled firmware artifacts retain their separate terms;
+this MIT notice does not relicense SDK, radio firmware or compiler runtime code.
 
 MIT License
 

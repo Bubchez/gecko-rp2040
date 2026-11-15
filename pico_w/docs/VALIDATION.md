@@ -1,4 +1,72 @@
-# Current T08 validation
+# Current T09 offline firmware validation
+
+Run date: 2026-11-15 UTC. Branch `feature/pico-w-bridge`, T08 base
+`177d2ca6f6815c5655442b747a82a0102a5298d6`; separate T09 instructions commit
+`9749045`. T09 implementation, cross-compilation and offline validation are
+complete. **No flashing, deployment, T10, physical I2C, actuator execution or
+Agile Alert/Pi Zero changes.** Hardware behaviour remains unverified.
+
+| Check | Actual result | Evidence |
+|---|---|---|
+| Clean GCC Debug / ASan+UBSan / strict warnings | **42/42 CTest groups pass** | [T09_DEBUG.txt](validation/T09_DEBUG.txt) |
+| Clean optimized Release, active test checks | **42/42 CTest groups pass** | [T09_RELEASE.txt](validation/T09_RELEASE.txt) |
+| T08 regression boundary | All original 35 groups retained, including real loopback HTTP, schema, startup, core/session faults and 60,000 deterministic mutation inputs | Both host transcripts |
+| Native firmware API compatibility | Same project C++ engine as ARM target: all five fixtures at 0–120000 ms, full v1 field comparisons against host adapter, OpenAPI/JSON Schema, malformed JSON/framing, auth, limits, cache expiry/recovery and every actuator family denied | runtime.contract (5 Python methods); T09_REVIEW.md |
+| Additional bounded runtime tests | Credential byte corruption/torn-record cuts; Wi-Fi timeout/backoff/link recovery; strict JSON incl. 20,000 deterministic malformed inputs; ownership, scheduler stall/catch-up and backward time | runtime.config/wifi/json/ownership |
+| Actual firmware TCP adapter with callback doubles | Fragmented RX/TX, two slots, ERR_MEM/backpressure, peer half-close, receive/send deadlines, close failure, remote error and teardown | runtime.network; doubles do not simulate lwIP/radio internals |
+| Build/provisioning tools | UF2 family/block/address/payload/bounds; validated bounded USB payload generation **without USB I/O** | runtime.tools (2 Python methods) |
+| Clean RP2040/Pico W Release cross-build | Pass; SDK 2.2.0, xPack GCC 13.3.1-1.1, pinned CMake/Ninja; no physical/control/core1 symbols | [T09_CROSS.txt](validation/T09_CROSS.txt) |
+| Second clean cross-build / deterministic artifact | **Byte-identical UF2**, identical final manifests, different build directories | [T09_REPRODUCIBLE.txt](validation/T09_REPRODUCIBLE.txt) |
+| Dependency licensing / scope preservation | Verified pinned inputs and accompanying notices; unresolved legacy implementation not copied; protected baseline paths unchanged, remote default branch unchanged | LICENSING.md, third_party/README.md, [T09_AUDIT.txt](validation/T09_AUDIT.txt) |
+
+Artifact: [UF2/manifest/checksums](../artifacts/t09/README.md). SHA256:
+`318705798e15d8f3c19e93842529b8a6a8be31db0ac45910bd332a40411dd135`.
+The UF2 is 930816 bytes; raw linked image is **465192 bytes**. Main RAM statics:
+**125192 bytes**; fixed libc heap: **8192**; core0 stack: **16384**; unused main
+RAM gap: **112376**; additional SDK scratch-stack reservation: **4096**. Largest
+reported project function frame: **2528 bytes** (limit 4096). Linker symbols,
+flash end before the last 8 KiB configuration reservation, and >=64 KiB unused
+gap are checked automatically. lwIP has fixed 24 KiB allocator/pools within
+statics. These are static/per-function budgets, **not runtime watermarks or a
+complete SDK/interrupt call-chain stack proof**; runtime memory diagnostics stay null.
+
+Host tools: GCC 14.2.0, CMake/CTest 3.31.6, Python 3.12.14; existing pinned
+jsonschema 4.23.0 and openapi-spec-validator 0.7.2. New Python acceptance methods:
+5 native contract + 2 build/provisioning tools, alongside the original 23 HTTP
+methods. Command output and exit statuses are committed above (only trailing
+whitespace removed from transcripts). Cross inputs
+and SHA256 are pinned in `firmware/build-lock.json`; Ninja package 1.11.1.3 reports
+`1.11.1.git.kitware.jobserver-1`. The Arm official download redirected to a blocked
+blob host, so the verified xPack distribution was selected and pinned instead.
+
+An exploratory run combined both test suites with two clean cross-builds and
+exposed a T08 sequential-test worker cleanup race. The fixture now waits for
+previous slots to release; production limits/behaviour are unchanged. Failed
+transcripts are retained in [T09_LOAD_FAILURES.txt](validation/T09_LOAD_FAILURES.txt);
+final suites were rerun after cross-build load finished. The native TCP clock
+sampling regression and its fix are also recorded in T09_REVIEW.md.
+
+## Reproduce T09
+
+The host Debug/Release commands under the retained T08 record below run all
+**42** current groups. Firmware cross-build/reproduction commands and concise
+future Windows device instructions are in [PICO_SIM_FIRMWARE.md](PICO_SIM_FIRMWARE.md).
+No USB/provisioning command was executed against a device; tests call only the
+payload/parser/record code. The build tool writes artifacts only under repository
+work/ or pico_w/artifacts/ and never flashes/discovers hardware.
+
+[T09_REVIEW.md](T09_REVIEW.md) records integration defects/resolutions. Protocol
+confidence is unchanged: no hardware captures, candidate inbound v51, synthetic
+C82/S81, no asserted real bus integrity/timing. Still unverified: UF2 acceptance/
+boot, ARM runtime/float formatting, actual USB, Wi-Fi/DHCP/reconnect/regulatory
+behaviour, real network load/pools, GPIO electrical inactivity, flash endurance/
+power loss, SDK allocation/stack/IRQ watermarks, and every Gecko interface test.
+Original source/asset permission gaps still block reuse; they do not block this
+independent SDK-linked simulation image. Stop before flashing, deployment or T10.
+
+---
+
+# Retained T08 validation
 
 Run date: 2026-11-15. Branch `feature/pico-w-bridge`, base commit
 `33fdede7ce23363d3294c030dd3b6bfca1ef8868`. T08 is complete for the local,

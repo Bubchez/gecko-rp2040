@@ -96,7 +96,7 @@ class SimulatedTransport {
   std::optional<TransportEvent> poll() noexcept;
   void cancel(std::uint64_t session) noexcept;
   bool scenario_complete() const noexcept;
-  // Explicit host-driver acknowledgement of a completed finite script/trace.
+  // Explicit simulation-driver acknowledgement of a completed finite script/trace.
   // Preserves clock, role, loss generation, counters and session identity.
   Error retire_completed_script() noexcept;
   Error scenario_error() const noexcept { return scenario_error_; }

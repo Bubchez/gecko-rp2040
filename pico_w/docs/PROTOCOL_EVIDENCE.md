@@ -6,6 +6,11 @@ input/specification; it cannot verify that a YE-3 V2 pack uses that specificatio
 The existing component remains a historical reference, not a copied implementation.
 See [LICENSING.md](LICENSING.md) for the no-reuse decision.
 
+T09 adds offline ARM compilation and native HTTP/Wi-Fi simulation firmware, using
+the same candidate profile and fixtures as the host. It does **not** promote any
+entry below to hardware verified. Synthetic status/handshake examples remain
+synthetic; no Pico, Wi-Fi, GPIO, I2C, timing or pack test has been performed.
+
 Sources below refer to upstream documentation at baseline
 [`3baacda4c0e3ae58e8b014692cf5f146db2b3318`](https://github.com/zteifel/esphome-gecko/tree/3baacda4c0e3ae58e8b014692cf5f146db2b3318).
 Protocol research is attributed to zteifel/esphome-gecko and its credits to

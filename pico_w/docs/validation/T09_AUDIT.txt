@@ -1,0 +1,119 @@
+T09 final offline source/dependency/artifact audit, 2026-11-15 UTC
+No device access, flashing or default-branch mutation.
+
+$ git branch --show-current
+feature/pico-w-bridge
+Exit status: 0
+
+$ git remote get-url origin
+https://github.com/Bubchez/gecko-rp2040.git
+Exit status: 0
+
+$ git diff --exit-code 3baacda4c0e3ae58e8b014692cf5f146db2b3318 -- . :!pico_w :!AGENTS.md
+Exit status: 0
+
+$ git ls-remote --symref origin HEAD refs/heads/master
+ref: refs/heads/master	HEAD
+3baacda4c0e3ae58e8b014692cf5f146db2b3318	HEAD
+3baacda4c0e3ae58e8b014692cf5f146db2b3318	refs/heads/master
+Exit status: 0
+
+$ git -C work/t09/pico-sdk rev-parse HEAD
+a1438dff1d38bd9c65dbd693f0e5db4b9ae91779
+Exit status: 0
+
+$ git -C work/t09/pico-sdk submodule status
+-501e6d2b86e6c92bfb9c390bcf55709938e25ac1 lib/btstack
+ dd7568229f3bf7a37737b9e1ef250c26efe75b23 lib/cyw43-driver (dd75682)
+ 77dcd25a72509eb83f72b033d219b1d40cd8eb95 lib/lwip (77dcd25)
+-107ea89daaefb9867ea9121002fbbdf926780e98 lib/mbedtls
+ 86ad6e56c1700e85f1c5678607a762cfe3aa2f47 lib/tinyusb (86ad6e5)
+Exit status: 0
+
+$ git -C work/t09/pico-sdk status --porcelain
+Exit status: 0
+
+$ git diff --check
+Exit status: 0
+
+Verbatim notice verification against pinned dependency distributions:
+483f865953435b66c443dee7558debe3cc3cf8fcbb6a112fd9fc6a795d53f1f6  PICO_SDK_BSD3.txt  MATCH
+67aca4f10d9edf489871f64cd8f0dcd6c5df3e4ce75bd39e1914fc54f99e40b3  CYW43_LICENSE_RP.txt  MATCH
+ef4aac92e05e87cd1cdc140870ed52206ba03d4a7fe46c1e11d7ffa6c87d252b  LWIP_BSD3.txt  MATCH
+b171720e8a442e7a3957d83c62cd3299dbb29da3db534cc626f9dded0de2ca44  TINYUSB_MIT.txt  MATCH
+9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74  GCC_RUNTIME_EXCEPTION.txt  MATCH
+8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  GCC_GPL3.txt  MATCH
+9a59b4ee3af067045fe0ea78786201c42d54756fe48cbccf44f3dfc398474717  NEWLIB_NOTICES.txt  MATCH
+f3b7f3e4426b1fa6f60198dae7adfedd94b77b28db2d108adc0253575011e0ff  LIBGLOSS_NOTICES.txt  MATCH
+b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1  CMSIS_APACHE2.txt  MATCH
+
+No untracked deliverables outside pico_w/. SDK/submodule cleanliness verified.
+UF2 source digest matches current implementation/build files.
+No original implementation source reused (manual review and protected-tree audit).
+{
+  "uf2_sha256": "318705798e15d8f3c19e93842529b8a6a8be31db0ac45910bd332a40411dd135",
+  "source_tree_sha256": "4cf314b113ca0fe5c846d8b2118d9c6c30cac1258efec7fe1dcbc0e81613a77b",
+  "memory": {
+    "flash_bytes": 465192,
+    "main_ram_static_bytes": 125192,
+    "libc_heap_bytes": 8192,
+    "core0_stack_bytes": 16384,
+    "scratch_stack_reservation_bytes": 4096,
+    "unused_main_ram_gap_bytes": 112376,
+    "max_project_function_stack_bytes": 2528,
+    "largest_project_stack_frames": [
+      [
+        2528,
+        "pico_w/src/simulation/json.cpp:172:11:gecko::runtime::JsonCheck gecko::runtime::check_json(std::string_view)",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/firmware/main.cpp:45:6:constprop(std::string_view)",
+        "static"
+      ],
+      [
+        928,
+        "pico_w/src/session/session.cpp:147:6:void gecko::ReadOnlySession::on_rx(const gecko::TransportEvent&, uint64_t)",
+        "static"
+      ],
+      [
+        800,
+        "pico_w/src/core/assembly.cpp:31:16:gecko::AssemblyResult gecko::Assembler::push(gecko::Bytes, gecko::FragmentContext, gecko::DecodeMode)",
+        "static"
+      ],
+      [
+        664,
+        "pico_w/src/simulation/model.cpp:113:8:void gecko::simulation::Model::status(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        632,
+        "pico_w/src/transport/simulated.cpp:175:7:gecko::Error gecko::SimulatedTransport::advance(uint64_t)",
+        "static"
+      ],
+      [
+        592,
+        "pico_w/src/transport/simulated.cpp:158:6:void gecko::SimulatedTransport::receive(const gecko::RxPlan&)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/transport/simulated.cpp:123:6:void gecko::SimulatedTransport::finish(gecko::Error, gecko::Phase, uint64_t, bool)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/simulation/json.cpp:98:6:bool gecko::runtime::{anonymous}::Json::scalar()",
+        "static"
+      ]
+    ],
+    "caveat": "Static link/per-function evidence only; SDK call chains, interrupt nesting and runtime watermarks unverified",
+    "forbidden_symbols_absent": true
+  }
+}

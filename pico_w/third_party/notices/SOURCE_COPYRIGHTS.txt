@@ -1,0 +1,498 @@
+SDK 2.2.0 compiled-source copyright notices (license texts accompany this file).
+Additional copyright/license notices are preserved in the component license files.
+
+lib/cyw43-driver/src/cyw43_ctrl.c
+Copyright (C) 2019-2022 George Robotics Pty Ltd
+1. Redistributions of source code must retain the above copyright notice,
+2. Redistributions in binary form must reproduce the above copyright notice,
+THIS SOFTWARE IS PROVIDED BY THE LICENSOR AND COPYRIGHT OWNER "AS IS" AND ANY
+DISCLAIMED. IN NO EVENT SHALL THE LICENSOR OR COPYRIGHT OWNER BE LIABLE FOR
+
+lib/cyw43-driver/src/cyw43_ll.c
+Copyright (C) 2019-2022 George Robotics Pty Ltd
+1. Redistributions of source code must retain the above copyright notice,
+2. Redistributions in binary form must reproduce the above copyright notice,
+THIS SOFTWARE IS PROVIDED BY THE LICENSOR AND COPYRIGHT OWNER "AS IS" AND ANY
+DISCLAIMED. IN NO EVENT SHALL THE LICENSOR OR COPYRIGHT OWNER BE LIABLE FOR
+
+lib/cyw43-driver/src/cyw43_lwip.c
+Copyright (C) 2019-2022 George Robotics Pty Ltd
+1. Redistributions of source code must retain the above copyright notice,
+2. Redistributions in binary form must reproduce the above copyright notice,
+THIS SOFTWARE IS PROVIDED BY THE LICENSOR AND COPYRIGHT OWNER "AS IS" AND ANY
+DISCLAIMED. IN NO EVENT SHALL THE LICENSOR OR COPYRIGHT OWNER BE LIABLE FOR
+
+lib/cyw43-driver/src/cyw43_stats.c
+Copyright (C) 2019-2022 George Robotics Pty Ltd
+1. Redistributions of source code must retain the above copyright notice,
+2. Redistributions in binary form must reproduce the above copyright notice,
+THIS SOFTWARE IS PROVIDED BY THE LICENSOR AND COPYRIGHT OWNER "AS IS" AND ANY
+DISCLAIMED. IN NO EVENT SHALL THE LICENSOR OR COPYRIGHT OWNER BE LIABLE FOR
+
+lib/lwip/src/netif/ppp/auth.c
+Copyright (c) 1993-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/ccp.c
+Copyright (c) 1994-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/chap-md5.c
+Copyright (c) 2003 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/chap-new.c
+Copyright (c) 2003 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/chap_ms.c
+Copyright (c) 1995 Eric Rosenquist.  All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/demand.c
+Copyright (c) 1996-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/eap.c
+Copyright (c) 2001 by Sun Microsystems, Inc.
+hereby granted, provided that the above copyright notice is
+copyright holder nor the author is used to endorse or promote
+
+lib/lwip/src/netif/ppp/ecp.c
+Copyright (c) 2002 Google, Inc.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+Copyright (c) 1994-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/eui64.c
+Copyright (c) 1999 Tommi Komulainen.  All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/fsm.c
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/ipcp.c
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/ipv6cp.c
+Copyright (c) 1999 Tommi Komulainen.  All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/lcp.c
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/magic.c
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/mppe.c
+Copyright (c) 2002,2003,2004 Google, Inc.
+documentation is hereby granted, provided that the above copyright
+
+lib/lwip/src/netif/ppp/multilink.c
+Copyright (c) 2000-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/polarssl/arc4.c
+ Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
+ Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
+   * Redistributions of source code must retain the above copyright
+   * Redistributions in binary form must reproduce the above copyright
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+
+lib/lwip/src/netif/ppp/polarssl/des.c
+ Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
+ Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
+   * Redistributions of source code must retain the above copyright
+   * Redistributions in binary form must reproduce the above copyright
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+
+lib/lwip/src/netif/ppp/polarssl/md4.c
+ Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
+ Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
+   * Redistributions of source code must retain the above copyright
+   * Redistributions in binary form must reproduce the above copyright
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+
+lib/lwip/src/netif/ppp/polarssl/md5.c
+ Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
+ Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
+   * Redistributions of source code must retain the above copyright
+   * Redistributions in binary form must reproduce the above copyright
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+
+lib/lwip/src/netif/ppp/polarssl/sha1.c
+ Based on XySSL: Copyright (C) 2006-2008  Christophe Devine
+ Copyright (C) 2009  Paul Bakker <polarssl_maintainer at polarssl dot org>
+   * Redistributions of source code must retain the above copyright
+   * Redistributions in binary form must reproduce the above copyright
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+
+lib/lwip/src/netif/ppp/ppp.c
+Copyright (c) 2003 by Marc Boucher, Services Informatiques (MBSI) inc.
+portions Copyright (c) 1997 by Global Election Systems Inc.
+that existing copyright notices are retained in all copies and that this
+
+lib/lwip/src/netif/ppp/pppcrypt.c
+Copyright (c) 1995 Eric Rosenquist.  All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/pppoe.c
+Copyright (c) 2006 by Marc Boucher, Services Informatiques (MBSI) inc.
+that existing copyright notices are retained in all copies and that this
+
+lib/lwip/src/netif/ppp/upap.c
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+2. Redistributions in binary form must reproduce the above copyright
+
+lib/lwip/src/netif/ppp/utils.c
+Copyright (c) 1999-2002 Paul Mackerras. All rights reserved.
+1. Redistributions of source code must retain the above copyright
+
+lib/lwip/src/netif/ppp/vj.c
+Copyright (c) 1989 Regents of the University of California.
+provided that the above copyright notice and this paragraph are
+
+lib/tinyusb/src/class/audio/audio_device.c
+Copyright (c) 2020 Reinhard Panhuber, Jerzy Kasenberg
+Copyright (c) 2023 HiFiPhile
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/cdc/cdc_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/dfu/dfu_device.c
+Copyright (c) 2021 XMOS LIMITED
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/dfu/dfu_rt_device.c
+Copyright (c) 2019 Sylvain Munaut <tnt@246tNt.com>
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/hid/hid_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/midi/midi_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/msc/msc_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/net/ecm_rndis_device.c
+Copyright (c) 2020 Peter Lawrence
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/net/ncm_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+Copyright (c) 2024 Hardy Griech
+Copyright (c) 2020 Jacob Berg Potter
+Copyright (c) 2020 Peter Lawrence
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/usbtmc/usbtmc_device.c
+Copyright (c) 2019 Nathan Conrad
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/vendor/vendor_device.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/class/video/video_device.c
+Copyright (c) 2021 Koji KITAYAMA
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/common/tusb_fifo.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+Copyright (c) 2020 Reinhard Panhuber - rework to unmasked pointers
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/device/usbd.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/device/usbd_control.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+Copyright (c) 2021 Ha Thach (tinyusb.org) for Double Buffered
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+lib/tinyusb/src/tusb.c
+Copyright (c) 2019 Ha Thach (tinyusb.org)
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+src/common/hardware_claim/claim.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_sync/critical_section.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_sync/lock_core.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_sync/mutex.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_sync/sem.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_time/time.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_time/timeout_helper.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_util/pheap.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/common/pico_util/queue.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2040/boot_stage2/compile_time_choice.S
+Copyright (c) 2019-2021 Raspberry Pi (Trading) Ltd.
+
+src/rp2040/pico_platform/platform.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_boot_lock/boot_lock.c
+Copyright (c) 2024 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_clocks/clocks.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_dma/dma.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_exception/exception.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_flash/flash.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_gpio/gpio.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_irq/irq.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_irq/irq_handler_chain.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_pio/pio.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_pll/pll.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_sync/sync.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c
+Copyright (c) 2024 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_ticks/ticks.c
+Copyright (c) 2024 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_timer/timer.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_uart/uart.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_vreg/vreg.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_watchdog/watchdog.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/hardware_xosc/xosc.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_async_context/async_context_base.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_async_context/async_context_poll.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_atomic/atomic.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_bit_ops/bit_ops_aeabi.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_bootrom/bootrom.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_bootrom/bootrom_lock.c
+Copyright (c) 2024 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_clib_interface/newlib_interface.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_crt0/crt0.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cxx_options/new_delete.cpp
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_arch/cyw43_arch.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_arch/cyw43_arch_freertos.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_arch/cyw43_arch_poll.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_arch/cyw43_arch_threadsafe_background.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cybt_shared_bus.c
+Copyright (c) 2023 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cybt_shared_bus_driver.c
+Copyright (c) 2023 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_driver/cyw43_bus_pio_spi.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_cyw43_driver/cyw43_driver.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_divider/divider_hardware.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_double/double_aeabi_rp2040.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_double/double_init_rom_rp2040.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_double/double_math.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_flash/flash.c
+Copyright (c) 2023 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_float/float_aeabi_rp2040.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_float/float_init_rom_rp2040.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_float/float_math.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_lwip/lwip_nosys.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_malloc/malloc.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_mem_ops/mem_ops_aeabi.S
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_platform_common/common.c
+Copyright (c) 2025 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_platform_panic/panic.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_rand/rand.c
+Copyright (c) 2022 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_runtime/runtime.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_runtime_init/runtime_init.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_runtime_init/runtime_init_clocks.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_standard_binary_info/standard_binary_info.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_stdio/stdio.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_stdio_usb/reset_interface.c
+Copyright (c) 2021 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_stdio_usb/stdio_usb.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+Copyright (c) 2019 Damien P. George
+The above copyright notice and this permission notice shall be included in
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+
+src/rp2_common/pico_stdlib/stdlib.c
+Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+
+src/rp2_common/pico_unique_id/unique_id.c
+Copyright (c) 2021 Raspberry Pi (Trading) Ltd.

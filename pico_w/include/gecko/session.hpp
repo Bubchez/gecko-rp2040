@@ -30,7 +30,7 @@ struct Snapshot {
   bool stale{true}, ready{false}, synthetic{true}, hardware_verified{false};
 };
 
-// Host synthetic session only; no transport substitution or write-enable switch.
+// Portable synthetic session only; no transport substitution or write-enable switch.
 class ReadOnlySession {
  public:
   explicit ReadOnlySession(SimulatedTransport& transport, SessionConfig config = {}) noexcept

@@ -27,9 +27,13 @@ endif()
 
 # Host-only, independently authored code. No SDK, GPIO, I2C or network imports.
 add_library(gecko_core STATIC src/core/protocol.cpp src/core/assembly.cpp
-  src/transport/simulated.cpp src/session/session.cpp)
+  src/transport/simulated.cpp src/session/session.cpp src/simulation/model.cpp)
 target_include_directories(gecko_core PUBLIC include)
 target_link_libraries(gecko_core PUBLIC gecko_build_options)
+
+add_library(gecko_runtime STATIC src/simulation/config.cpp src/simulation/json.cpp
+  src/simulation/api.cpp src/simulation/maintenance.cpp)
+target_link_libraries(gecko_runtime PUBLIC gecko_core)
 
 # Native host process with bounded stdin/stdout IPC; never imports a physical HAL.
 add_executable(gecko_mock_core src/host/mock_core.cpp)
@@ -63,4 +67,22 @@ if(BUILD_TESTING)
       ${CMAKE_CURRENT_SOURCE_DIR}/tests/http_tests.py ${case} $<TARGET_FILE:gecko_mock_core>)
     set_tests_properties(http.${case} PROPERTIES TIMEOUT 60)
   endforeach()
+  add_executable(gecko_runtime_probe tests/runtime_probe.cpp)
+  target_link_libraries(gecko_runtime_probe PRIVATE gecko_runtime)
+  add_executable(gecko_runtime_tests tests/runtime_tests.cpp)
+  target_link_libraries(gecko_runtime_tests PRIVATE gecko_runtime)
+  foreach(case IN ITEMS config wifi json ownership)
+    add_test(NAME runtime.${case} COMMAND gecko_runtime_tests ${case})
+    set_tests_properties(runtime.${case} PROPERTIES TIMEOUT 30)
+  endforeach()
+  add_test(NAME runtime.contract COMMAND ${Python3_EXECUTABLE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/runtime_contract.py $<TARGET_FILE:gecko_runtime_probe> $<TARGET_FILE:gecko_mock_core>)
+  set_tests_properties(runtime.contract PROPERTIES TIMEOUT 60)
+  add_executable(gecko_network_tests tests/network_tests.cpp firmware/network.cpp)
+  target_include_directories(gecko_network_tests PRIVATE tests/fake_pico firmware)
+  target_link_libraries(gecko_network_tests PRIVATE gecko_runtime)
+  add_test(NAME runtime.network COMMAND gecko_network_tests)
+  set_tests_properties(runtime.network PROPERTIES TIMEOUT 30)
+  add_test(NAME runtime.tools COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/firmware_tools_tests.py)
+  set_tests_properties(runtime.tools PROPERTIES TIMEOUT 30)
 endif()

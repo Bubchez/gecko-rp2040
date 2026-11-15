@@ -74,3 +74,30 @@ development tools with their dependencies. They are not needed by the runnable
 mock. New API examples are synthetic outputs of this new core with normalized boot
 IDs, not upstream captures. The unresolved permissions for inherited source/assets
 remain unchanged; no upstream grant is inferred from completing T08.
+
+## T09 dependency and binary decision
+
+New firmware, shared simulation/runtime source and build/provisioning tools are
+independently authored and fall within the expanded scoped MIT notice. No inherited
+Arduino/ESPHome, AVR Wire, Geckolib or historical extracted source is copied or linked.
+Their unresolved permissions still block any future reuse.
+
+The Pico image necessarily links external SDK/radio/runtime code. SDK 2.2.0 and
+three used submodules are pinned to immutable commits in
+`firmware/build-lock.json`; the xPack compiler distribution is pinned by SHA256.
+The SDK uses BSD-3-Clause, lwIP BSD-3-Clause, TinyUSB MIT, and CMSIS headers Apache-2.0.
+For CYW43 driver/resources we rely specifically on its **LICENSE.RP**, granting use
+and redistribution only with RP2040 or another Raspberry Pi semiconductor; this
+UF2 is restricted to Pico W/RP2040. We do not rely on the alternate noncommercial
+grant or infer permission for other chips. GCC runtime/header code retains GPLv3
+plus Runtime Library Exception 3.1; the eligible unmodified GCC compilation of
+independent modules is covered by that exception. Newlib/libgloss notices are
+preserved in full from the verified distribution. No compiler executables or
+third-party implementation source are vendored/modified here.
+
+Exact sources, applicable terms and verbatim notices accompany the binary under
+[third_party/README.md](../third_party/README.md) and its notices directory.
+The UF2 is a combined binary under those respective terms, **not blanket MIT**.
+Keep the notices with redistributed copies. This resolves dependency reuse for
+this RP2040 simulation build only; it supplies no missing legacy grant and makes
+no legal, hardware compatibility, deployment or release-readiness claim.

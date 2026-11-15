@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "firmware": "0.2.0-pico-sim",
+  "api": "1.0.0",
+  "purpose": "offline-reviewed simulation only; not hardware validated",
+  "source_tree_sha256": "4cf314b113ca0fe5c846d8b2118d9c6c30cac1258efec7fe1dcbc0e81613a77b",
+  "uf2_sha256": "318705798e15d8f3c19e93842529b8a6a8be31db0ac45910bd332a40411dd135",
+  "uf2_bytes": 930816,
+  "inputs": {
+    "format": 1,
+    "board": "pico_w",
+    "platform": "rp2040",
+    "sdk": {
+      "url": "https://github.com/raspberrypi/pico-sdk.git",
+      "version": "2.2.0",
+      "commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+      "submodules": {
+        "lib/cyw43-driver": "dd7568229f3bf7a37737b9e1ef250c26efe75b23",
+        "lib/lwip": "77dcd25a72509eb83f72b033d219b1d40cd8eb95",
+        "lib/tinyusb": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47"
+      }
+    },
+    "compiler": {
+      "version": "13.3.1",
+      "distribution": "xPack GNU Arm Embedded GCC 13.3.1-1.1",
+      "archive": "xpack-arm-none-eabi-gcc-13.3.1-1.1-linux-x64.tar.gz",
+      "directory": "xpack-arm-none-eabi-gcc-13.3.1-1.1",
+      "url": "https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v13.3.1-1.1/xpack-arm-none-eabi-gcc-13.3.1-1.1-linux-x64.tar.gz",
+      "sha256": "006c89337eced277fdf4c1c3bf3aebe55c85e8d52cba8d412009717fb781b959"
+    },
+    "cmake": "3.31.6",
+    "ninja_package": "1.11.1.3",
+    "ninja_version": "1.11.1.git.kitware.jobserver-1",
+    "source_date_epoch": 1763164800,
+    "physical_i2c": false,
+    "actuator_execution": false
+  },
+  "memory": {
+    "flash_bytes": 465192,
+    "main_ram_static_bytes": 125192,
+    "libc_heap_bytes": 8192,
+    "core0_stack_bytes": 16384,
+    "scratch_stack_reservation_bytes": 4096,
+    "unused_main_ram_gap_bytes": 112376,
+    "max_project_function_stack_bytes": 2528,
+    "largest_project_stack_frames": [
+      [
+        2528,
+        "pico_w/src/simulation/json.cpp:172:11:gecko::runtime::JsonCheck gecko::runtime::check_json(std::string_view)",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/src/simulation/model.cpp:126:8:void gecko::simulation::Model::handshake(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        936,
+        "pico_w/firmware/main.cpp:45:6:constprop(std::string_view)",
+        "static"
+      ],
+      [
+        928,
+        "pico_w/src/session/session.cpp:147:6:void gecko::ReadOnlySession::on_rx(const gecko::TransportEvent&, uint64_t)",
+        "static"
+      ],
+      [
+        800,
+        "pico_w/src/core/assembly.cpp:31:16:gecko::AssemblyResult gecko::Assembler::push(gecko::Bytes, gecko::FragmentContext, gecko::DecodeMode)",
+        "static"
+      ],
+      [
+        664,
+        "pico_w/src/simulation/model.cpp:113:8:void gecko::simulation::Model::status(uint64_t, uint64_t)",
+        "static"
+      ],
+      [
+        632,
+        "pico_w/src/transport/simulated.cpp:175:7:gecko::Error gecko::SimulatedTransport::advance(uint64_t)",
+        "static"
+      ],
+      [
+        592,
+        "pico_w/src/transport/simulated.cpp:158:6:void gecko::SimulatedTransport::receive(const gecko::RxPlan&)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/transport/simulated.cpp:123:6:void gecko::SimulatedTransport::finish(gecko::Error, gecko::Phase, uint64_t, bool)",
+        "static"
+      ],
+      [
+        552,
+        "pico_w/src/simulation/json.cpp:98:6:bool gecko::runtime::{anonymous}::Json::scalar()",
+        "static"
+      ]
+    ],
+    "caveat": "Static link/per-function evidence only; SDK call chains, interrupt nesting and runtime watermarks unverified",
+    "forbidden_symbols_absent": true
+  },
+  "physical_i2c": false,
+  "actuator_execution": false,
+  "gecko_gpio": "inactive"
+}

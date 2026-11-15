@@ -3,11 +3,13 @@
 Proposal v0.1, 2026-11-15. **Review before implementation.**
 
 Milestone update: subsequent user instructions authorize the portable host core
-through T08 host simulation, read-only sessions and loopback HTTP mock. Stop before T09. See
+through T08 host simulation and T09 simulation firmware implementation,
+cross-compilation and offline validation only. Stop before flashing, deployment or T10. See
 [ROADMAP.md](ROADMAP.md), [PROTOCOL_EVIDENCE.md](PROTOCOL_EVIDENCE.md),
 [LICENSING.md](LICENSING.md) and [VALIDATION.md](VALIDATION.md) for current status.
 The original architecture/backlog below is retained as planning history; its
-hardware, Pico/Wi-Fi/deployment and control stages remain unapproved and unimplemented.
+physical bus, deployment and control stages remain unapproved and unimplemented.
+T09's native Pico/Wi-Fi simulation code is compiled but not hardware validated.
 
 Repository: `Bubchez/gecko-rp2040`; branch: `feature/pico-w-bridge`.
 Baseline: `3baacda4c0e3ae58e8b014692cf5f146db2b3318`.

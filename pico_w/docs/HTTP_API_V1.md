@@ -1,8 +1,9 @@
 # Read-only HTTP JSON API v1.0
 
 Contract **1.0.0**, finalized for T08 on 2026-11-15. Machine-readable source:
-[OpenAPI 3.1 JSON](../api/openapi-v1.json). Implemented by the runnable host mock;
-no Pico HTTP implementation or physical communication is included. This replaces
+[OpenAPI 3.1 JSON](../api/openapi-v1.json). Implemented by the runnable host mock
+and T09's offline-built Pico W simulation firmware. No physical communication
+is included; native device networking remains unverified. This replaces
 an unimplemented draft, not a previously deployed API. Agile Alert and the Pi
 Zero application remain separate and unchanged.
 
@@ -23,7 +24,12 @@ observed C/S filename versions are separate concepts.
 The host binds only `127.0.0.1`, default port **8765**, HTTP/1.1. It is a local
 integration fixture using the native C++ session core. Runtime uses Python's
 standard library; validators are development dependencies only. It is not a
-Pico/Wi-Fi, TLS, mDNS, cloud, MQTT or ESPHome deployment. The schema reserves
+Pico/Wi-Fi, TLS, mDNS, cloud, MQTT or ESPHome deployment. T09's separate firmware
+adapter uses DHCP IPv4 port 8765 on a trusted isolated development LAN, only after
+USB credentials are provisioned during separately approved future bench work.
+It is still simulated/simulation and has no physical transport. No flashing or
+deployment has occurred. See [PICO_SIM_FIRMWARE.md](PICO_SIM_FIRMWARE.md).
+The schema reserves
 `rp2040_i2c`, `passive`, `active_read_only` and live/replay provenance for later
 reviewed read-only implementations; this mock always emits simulated/simulation.
 
@@ -36,8 +42,10 @@ reviewed read-only implementations; this mock always emits simulated/simulation.
   `WWW-Authenticate: Bearer`. No credentials in URLs, JSON, request logs or examples.
 - Local tokens are 32–128 URL-safe ASCII characters. The launcher creates a random
   local secret file without overwriting it or printing the value. No default token.
-  Plain HTTP does not encrypt a bearer token; the mock therefore cannot bind to a
-  LAN address. No CORS headers/browser access are enabled. Agile Alert should call
+  Plain HTTP does not encrypt a bearer token; the host mock therefore cannot bind
+  to a LAN address. Pico simulation firmware uses a separately configured token
+  and requires an isolated trusted LAN; it provides no TLS or Internet exposure.
+  No CORS headers/browser access are enabled. Agile Alert should call
   through its own developer/server-side integration, not expose this token publicly.
 - UTF-8 JSON responses use `Content-Type: application/json`, `Cache-Control: no-store`,
   exact Content-Length and `Connection: close`. One request per connection; a client
@@ -80,7 +88,8 @@ all objects are denied, including unknown functions and invalid target values.
 
 GET reads an immutable cache. It cannot tick the core, start GO, ACK a frame,
 refresh status, reset a session or change a scenario. Background maintenance alone
-owns the native process. A dead/unresponsive backend, bad backend envelope, expired
+owns the native process (or advances the shared model in Pico firmware).
+A dead/unresponsive backend, bad backend envelope, expired
 cache (1 s) or out-of-range model revision returns **503 bridge_unavailable** with
 Retry-After. Do not substitute fake state. Health may remain 200 because the HTTP
 loop is live. A modeled spa fault with a healthy backend instead remains status 200
@@ -138,7 +147,13 @@ identification. `read_fields` advertises only implemented read families. All com
 entries have supported/enabled false and reason read_only. Command queue/history/
 retention limits are zero. Measured hardware timing, stack/free RAM and last-error
 age remain null. Counters saturate at uint32 maximum. Scenario/simulation time in
-diagnostics are host metadata, not spa time; non-mock implementations may use null.
+diagnostics are synthetic metadata, not spa time; non-mock implementations may use
+null. Native firmware optionally adds `wifi` (state/attempts/reconnects) and `safety`
+(inactive Gecko GPIO, physical I2C/actuator execution compiled false). These optional
+properties are documented in OpenAPI without changing required v1 fields/version.
+RAM/stack diagnostics remain null until measured on hardware; artifact memory
+budgets are static build evidence. Firmware default fixture is healthy; it has no
+HTTP scenario switch. The host-only loopback restriction remains unchanged.
 
 ## Errors
 

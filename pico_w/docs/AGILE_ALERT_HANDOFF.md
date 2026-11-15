@@ -18,6 +18,14 @@ no built-in production credentials or public URLs. The mock accepts only local
 connections and emits no CORS headers. Do not send it browser credentials or
 assume it is reachable from another machine; this milestone adds no LAN tunnel.
 
+T09 additionally supplies an offline-built Pico W **simulation** image implementing
+the same v1 contract. After separately authorized future bench configuration, its
+DHCP IPv4 address and USB-provisioned token can replace the host URL/token in a
+developer integration. See [PICO_SIM_FIRMWARE.md](PICO_SIM_FIRMWARE.md). This changes
+no Agile Alert/Pi Zero code or configuration. Actual device networking is unverified;
+the firmware remains simulated/read-only. Ignore optional Wi-Fi/safety diagnostic
+fields and target-specific firmware_version if the application does not use them.
+
 ## Suggested integration flow
 
 1. Read health for HTTP liveness, then authenticated capabilities. Require

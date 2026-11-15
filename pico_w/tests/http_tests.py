@@ -52,7 +52,21 @@ class Fixture:
         self.thread.join(timeout=2)
         self.core.close()
 
+    def wait_idle(self):
+        # Content-Length completion precedes server-thread slot release. Sequential
+        # tests wait for cleanup instead of accidentally testing excess connections.
+        acquired = 0
+        try:
+            for _ in range(2):
+                if not self.server.slots.acquire(timeout=3):
+                    raise TimeoutError("previous HTTP worker did not release its slot")
+                acquired += 1
+        finally:
+            for _ in range(acquired):
+                self.server.slots.release()
+
     def request(self, path="/api/v1/status", method="GET", body=None, headers=None, auth=True):
+        self.wait_idle()
         connection = http.client.HTTPConnection("127.0.0.1", self.server.server_port, timeout=3)
         values = {"Authorization": "Bearer " + TOKEN} if auth else {}
         values.update(headers or {})
@@ -64,6 +78,7 @@ class Fixture:
         return result
 
     def raw(self, request):
+        self.wait_idle()
         with socket.create_connection(("127.0.0.1", self.server.server_port), timeout=3) as connection:
             connection.sendall(request)
             chunks = []
